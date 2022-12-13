@@ -1,1 +1,1 @@
-# i6 presentation / slides template
+Slides for Bachelor Colloquium
