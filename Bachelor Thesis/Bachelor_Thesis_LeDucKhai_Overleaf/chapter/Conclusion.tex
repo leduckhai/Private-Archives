@@ -1,0 +1,38 @@
+\chapter{Conclusion}
+\label{ch: Conclusion}
+
+
+\section{Overall results}
+
+In this thesis, we describe our efforts to develop HYKIST-related \glsxtrshort{ASR} systems for conversational telephone speech in the medical field for Vietnamese language.
+
+Firstly, we use various acoustic encoder topologies to present supervised-only baselines while deploying the hybrid \glsxtrshort{HMM} framework.
+
+Secondly, we use unsupervised \glsxtrshort{Wav2vec 2.0} pretraining to improve system performance and analyze the effects of pretraining data on performance.
+The experimental findings demonstrate that this is especially effective when diverse pretraining data is used, e.g. data on multiple domains, multi-speaker data, augmented data...
+Also, multilingual pretraining does not always outperform monolingual pretraining.
+It is also shown that cost-effective model development is possible by utilizing the \glsxtrshort{XLSR-53} model, which is freely available.
+We then compare with the baselines and show that the \glsxtrshort{Wav2vec 2.0} unsupervised pretraining does not always outperform the \glsxtrshort{Transformer} supervised-only approach, especially when the pretrained data is not diverse enough.
+
+Thirdly, our best method to further improve the accuracy is using continued pretraining approach, where we pretrain multiple 8kHz datasets using parameters initialized by the 16kHz multilingual \glsxtrshort{XLSR-53} model.
+We show that continued pretraining is beneficial for both the monolingual and the multilingual scenario.
+However, the continued pretraining on less diverse data benefits more than the diverse data.
+
+Fourthly, we compare the performance of \glsxtrshort{Wav2vec 2.0} encoders and recommend the \textit{Base} architecture instead of \textit{Large}\textsubscript{1-8} for the sake of both accuracy and inference performance.
+We also recommend the use of Kaiming Initialization for better accuracy of \glsxtrshort{Wav2vec 2.0} architecture, instead of Xavier Initialization.
+
+Finally, we apply and analyze the use of intermediate loss - \glsxtrfull{ICE Loss} and \glsxtrfull{IF Loss} - to make \glsxtrshort{Wav2vec 2.0} more robust for all recognition domains.
+We prove that \glsxtrshort{IF Loss} works better than \glsxtrshort{ICE Loss} in all data domains.
+In addition, for the small out-of-domain recognition \glsxtrshort{IF Loss} works well but for the large out-of-domain recognition it should only be applied on less diverse pretrained data.
+In order to further improvement of accuracy, we integrate \glsxtrshort{IF Loss} with On-off Regularization and L2 Regularization.
+
+
+\section{Future work}
+
+During the work of this thesis, we have discovered some promising directions which are planned for future work.
+First, section \ref{sec: unsupervised_pretraining} shows that the system performance benefits from the unsupervised pretraining on diverse data but pretraining on the in-domain data, medical speech data in other words, is not compared yet.
+Second, we show that the data augmentation in pretraining stage is effective. However, such data augmentation for finetuning is not investigated yet.
+Third, due to time constraint, the effectiveness of On-off Regularization for different pretraining schedules is not studied. 
+This leads to the question if sequence discriminative training \cite{gibson2006hypothesis}, which also uses learning rate reset, works well with \glsxtrshort{Wav2vec 2.0}.
+Finally, Wav2vec 2.0 - Conformer \cite{wav2vec2_conformer} has been popular lately. 
+However, its effectiveness on Vietnamese has not been investigated yet.

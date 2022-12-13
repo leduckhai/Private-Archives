@@ -1,0 +1,185 @@
+\chapter{Theory}
+\label{ch: Theory}
+
+
+\section{Hybrid ASR framework}
+
+\subsection{Bayes theorem}
+
+Given a sequence of acoustic observations $x_{1}^{T}$ whose length is $T$,  the most likely word sequence to be recognized is $w_{1}^{N}$.
+A variety of subword units, such as phonemes, and the acoustic representation of the audio signal are connected through acoustic models.
+In terms of probabilities, the relation $w^{*}$ between the acoustic and word sequence is described as: 
+
+\begin{equation}
+    w^{*} = \operatorname{arg}\max_{w_1^N} \, p(w_{1}^{N}|x_{1}^{T})
+\end{equation}
+
+As stated in the introduction, conventional \glsxtrshort{ASR} systems typically consist of a number of modules, including dictionaries, language models, and acoustic models.
+By utilizing Bayes' Theorem to break out the posterior probability, it is possible to show the connections between them.
+For the maximization, the probability $p(x)$ can be ignored because it just acts as a normalization and has no bearing on the outcome.
+
+\begin{equation}
+    p(w_{1}^{N}|x_{1}^{T}) = \frac{p(x_{1}^{T}|w_{1}^{N})p(w_{1}^{N})}{p(x_{1}^{T})} \propto p(x_{1}^{T}|w_{1}^{N})p(w_{1}^{N})
+\end{equation}
+
+\begin{equation}
+w^{*} = \operatorname{arg}\max_{w_1^N}  \underbrace{p(x_{1}^{T}|w_{1}^{N})}_{\text{acoustic model}}\cdot\underbrace{p(w_{1}^{N})}_{\text{language model}}
+\end{equation}
+
+\subsection{Audio features}
+
+The classification model uses features, which are representations taken from audio samples and used as input. 
+There are many features, and they all show the spoken audio's frequency information.
+Statistical models must learn some rather long-term dependencies within the input data due to the high resolution in the time-domain, which is often quite challenging and computationally expensive. 
+As a result, we leverage acoustic features to simplify the signal while preserving the most crucial statistics.
+
+\textbf{Mel-frequency cepstral coefficient (MFCC)}: The windowing of the signal, application of the \glsxtrfull{DFT}, calculation of the magnitude's log, warping of the frequencies on a Mel scale, and application of the inverse \glsxtrfull{DCT} are the main steps in the \glsxtrshort{MFCC} feature extraction technique. 
+Below is a short explanation \cite{Rao_KE_2017} of each stage in the \glsxtrshort{MFCC} feature extraction process.
+
+\begin{enumerate}
+    \item Pre-emphasis: Filtering that highlights the higher frequencies is referred to as pre-emphasis. Its function is to balance the spectrum of spoken sounds, which roll off sharply at high frequencies.
+    \item Frame blocking and windowing: Speech analysis over a short enough time span is required for stable acoustic features. The analysis must therefore always be performed on short segments where the speech signal is believed to be stationary.
+    \item \glsxtrshort{DFT} spectrum: Each windowed frame is converted into magnitude spectrum by applying \glsxtrshort{DFT}
+    \item Mel spectrum: The Fourier transformed signal is run through the Mel-filter bank, a collection of band-pass filters, to compute the Mel spectrum. A Mel is a unit of measurement based on the perceived frequency by human ears.
+    \item \glsxtrfull{DCT}: Because the vocal tract is smooth, there is a tendency for adjacent bands' energy levels to correlate. When the converted Mel frequency coefficients are applied to the \glsxtrshort{DCT}, a set of cepstral coefficients are generated.
+    \item Dynamic MFCC features: Since the cepstral coefficients only include data from a single frame, they are frequently referred to as static features. By computing the first and second derivatives of the cepstral coefficients, additional information on the temporal dynamics of the signal is gained.
+\end{enumerate}
+
+\textbf{Gammatone features}: The Gammatone filter \cite{Aertsen_Olders_Johannesma_1981}, which is intended to mimic the human auditory filter, is the foundation for Gammatone features. 
+They were initially presented for large vocabulary \glsxtrshort{ASR} in \cite{schlueter:icassp07}. 
+A filterbank of Gammatone filters with center frequencies sampled from the Greenwood function \cite{Greenwood_1990} is applied after pre-emphasizing the speech signal.
+Below is a summary of each stage in the Gammatone feature extraction process:
+
+\begin{enumerate}
+    \item Typically, a Hanning window of 25 ms width with 10 ms shifts is used to perform the temporal integration of the absolute values of the filter outputs.
+    \item A spectral integration with a 9-channel window and a 4-channel shift followed.
+    \item (10th root or log) compression was performed, followed by cepstral decorrelation resulting in 16 cepstral coefficients. 
+    \item Following the use of the 10th root compression, a discrete cosine transform (DCT)-based cepstral decorrelation and normalizing methods are used.
+\end{enumerate}
+
+\textbf{Extracted features from raw waveform}: The features from raw waveform encoder are extracted by \glsxtrshort{CNN} feature encoder. 
+First, the feature encoder's raw waveform input is normalized to zero mean and unit variance.
+The feature encoder contains seven blocks and the temporal convolutions in each block have 512 channels with strides (5,2,2,2,2,2,2) and kernel widths (10,3,3,3,3,2,2). 
+Besides, layer normalization \cite{layer_normalization}, and the \glsxtrshort{GELU} activation function \cite{gelu} are also applied.
+This results in an encoder output frequency of 49 hz with a stride of about 20ms between each sample, and a receptive field of 400 input samples or 25ms of audio. 
+The convolutional layer modeling relative positional embeddings has kernel size 128 and 16 groups.
+
+
+\subsection{Acoustic modeling}
+
+When modeling the probability $p(x_1^T|w_1^N)$, the length of time sequence $T$ and of word sequence $N$ are often not the same because $N$ is usually much smaller than $T$.
+The alignment between the acoustic observations $x_1^T$ and labels $w_1^N$ is unknown and commonly even unclear.
+The \glsxtrfull{HMM} is a statistical model that introduces a latent alignment by states $s_1^T$ and subsequently modeling the probability of $x_1^T$ for a given alignment to $w_1^N$ \cite{Baum1967AnIW}.
+The probability $p(x_1^T|w_1^N)$ is then calculated by adding all possible alignments between the acoustic observation and the labels.
+Assuming conditional independence of observations when states are given and that states only depend on their predecessor, this sum results in the equation below:
+
+\begin{align}
+	\label{eq:hmm}
+	p(x_1^T|w_1^N) = \sum_{[s_1^T]}\prod_{t=1}^Tp(x_t, s_t|s_{t-1}, w_1^N) =
+	\sum_{[s_1^T]}\prod_{t=1}^T\underbrace{p(s_t|s_{t-1}, w_1^N)}_{\text{transition prob.}}\cdot
+	\underbrace{p(x_t|s_t, s_{t-1}, w_1^N)}_{\text{emission prob.}}
+\end{align}
+
+A widely accepted simplification is to make the assumption that the last state for the emission probability is independent such that:
+
+\begin{align}
+	\label{eq:simplify_hmm}
+	p(x_t|s_t, s_{t-1}, w_1^N) = p(x_t|s_t, w_1^N)
+\end{align}
+
+The transition model calculates the probabilities of moving from one state to the next. 
+The emission probability models the probability of an acoustic observation based on the current and previous states. 
+When the probability is simplified, it only depends on the current state.
+The transition model can have several topologies, but the \textit{0-1-2} topology is the most commonly used.
+The topology is state-independent and has different transition probabilities: staying in the current state, jumping to the next state, or jumping to the second next state.
+By jumping faster or slower in time, the jump and stay property allows the alignment of labels and acoustic observations to adjust.
+The emission model calculates the probability of an acoustic observation in the current and previous states.
+
+\textbf{Context-Dependent Phone}: Because a language's vocabulary is typically very large, modeling words directly in the classification is impractical.
+Phonemes, on the other hand, are frequently used for subword modeling.
+For better learning, the acoustic articulation of a phoneme is determined by its surroundings, for example  the beginning, the middle and the ending part.
+As a result, multiple phonemes are combined to create triphone or allophone labels.
+
+\textbf{\glsxtrfull{CART}} \cite{Beulen98automaticquestion}: However, because of the cubic number of phonemes, these are a large class of labels. 
+The possible triphones are greater than the number of observed triphones.
+Therefore, some share the same \glsxtrshort{GMM} model.
+\glsxtrshort{CART} is a decision tree used to cluster triphones that can share the same \glsxtrshort{GMM} model.
+To reduce the number of labels, allophones are clustered using a \glsxtrshort{CART}, and the subsequent clusters are used as labels.
+
+\textbf{Baum–Welch algorithm}: In practical training of \glsxtrshort{HMM}, inferring the parameters of the \glsxtrshort{HMM} is not simple and cannot be done manually.
+An automated data-driven approach based on the \glsxtrfull{EM} algorithm is used instead, with a dataset of acoustic observations with transcriptions.
+Because the best alignment between acoustic observations and transcriptions is not always available, the \glsxtrshort{EM} algorithm is initially leveraged with a sub-optimal linear alignment.
+The observation model and alignment are then iteratively optimized using the steps below:
+
+\begin{enumerate}
+	\item Maximization: Estimate the model parameters using the previously obtained alignment by maximizing the log-likelihood function.
+	\item Expectation: Using the parameters from step 1, estimate a new alignment.  
+	\item Get back to step 1 until the model fully converges.
+\end{enumerate}
+
+\textbf{\glsxtrshort{GMM}/\glsxtrshort{HMM}}: The \glsxtrshort{HMM} can be used to model the transition between phones and the corresponding observable.
+A widely used approach is modelling the emission probabilities for each label with a parametrized \glsxtrshort{GMM}, resulting the \glsxtrshort{GMM}/\glsxtrshort{HMM} method.
+The \glsxtrshort{GMM} is a weighted sum over $K$ normal distributions
+
+\begin{align}
+	p(x_t|s_t, s_{t-1}, w_1^N) = \sum_{i=1}^K c_i \cdot \mathcal{N}(x_t|\mu_i, \sigma_i^2),
+\end{align}
+
+resulting in a multimodal emission probability with
+parameters $\mu_i, \sigma_i$ and mixture weights $c_i$ 
+for $i\in\llbracket1,K\rrbracket$. 
+The mixture weights are non-negative and sum up to unity.
+Using the simplification in Equation \ref{eq:simplify_hmm} the state $s_{t-1}$ can be additionally dropped. 
+
+\textbf{\glsxtrshort{DNN}/\glsxtrshort{HMM}}: Another approach that has been popular is modelling the posterior probability $p(a_{s_t}|x_1^T)$ discriminatively.
+Usually \glsxtrfull{DNN} is leveraged for this purpose, resulting in the \glsxtrshort{DNN}/\glsxtrshort{HMM} approach.
+The purpose of \glsxtrshort{GMM}/\glsxtrshort{HMM} system is to generate alignments for the training of \glsxtrshort{DNN}/\glsxtrshort{HMM} system \cite{RASR-hybrid_vs_attention}.
+The emission probability in the \glsxtrshort{HMM} can afterwards be calculated by applying Bayes rule such that:
+
+\begin{align}
+	p(x_1^T|a_{s_t}) = \frac{p(a_{s_t}|x_1^T)p(x_1^T)}{p(a_{s_t})}.
+\end{align}
+
+The probability $p(a_{s_t})$ can be estimated as the relative frequency of $a_{s_t}$.
+In order to simplify the Bayes decision rule, the probability $p(x_1^T)$ is constant and therefore can be removed.
+    
+    
+\subsection{Language modeling}
+
+In a hybrid system, we use the 4-gram count based \glsxtrfull{LM}, using Kneser-Ney Smoothing algorithm \cite{kneser_ney_lm}. 
+The \glsxtrshort{LM}s employed all use full-words in the first-pass decoding \cite{beck2019lstm}. 
+In other words, lattice rescoring is not performed in the second-pass decoding.
+
+In order to deal with multiple monolingual text corpora, the first step is to create an \glsxtrshort{LM} for each monolingual text corpus. 
+Following that, we use a weighting process to combine the \glsxtrshort{LM}s into a single \glsxtrshort{LM}, yielding one \glsxtrshort{LM} for Vietnamese language.
+
+
+\subsection{Decoding}
+
+In order to recognize the speech given the acoustic observations, the \glsxtrshort{AM} and \glsxtrshort{LM} need to be combined following the Bayes decision rule, resulting in:
+
+\begin{align}
+	w_1^N = \operatorname{arg}\max_{N,w_1^N}p\Bigl(\prod_{n=1}^Np(w_n|w_{n-m}^{n-1}) \cdot
+	\sum_{[s_1^T]}\prod_{t=1}^Tp(x_t,s_t|
+	s_{t-1}, w_1^N)\Bigr)
+\end{align}
+
+With dynamic programming, this maximization can be solved by Viterbi algorithm which recursively computes the maximum path in $O(k^{2}T)$ where $k$ and $T$ are vocabulary size and sequence length respectively.
+The Viterbi approximation can be applied as
+
+\begin{align}
+	w_1^N = \operatorname{arg}\max_{N,w_1^N}p\Bigl(\prod_{n=1}^Np(w_n|w_{n-m}^{n-1}) \cdot
+	\max_{[s_1^T]}\prod_{t=1}^Tp(x_t,s_t|s_{t-1}, w_1^N)\Bigr),
+\end{align}
+so that the optimization reduces to a best-path problem in the alignment graph of all possible predicted words to the acoustic observations.
+Besides, beam search (\glsxtrshort{AM} and \glsxtrshort{LM} pruning) is used in the searching process which only focuses on the most promising predicted words at each time step \cite{ortmanns1997word}.
+
+\subsection{Recognition Performance}
+
+The \glsxtrfull{WER} is a widely used indicator of how well an \glsxtrshort{ASR} system is performing. 
+The percentage of words that were incorrectly predicted is shown by this number. 
+The \glsxtrshort{ASR} system performs better with a lower value; a \glsxtrshort{WER} of 0 equals a perfect result. \glsxtrshort{WER} can be calculated as:
+
+\begin{equation}
+    \text{WER} = \frac{\text{Substitutions} + \text{Insertions} + \text{Deletions}}{\text{Reference words}}
+\end{equation}

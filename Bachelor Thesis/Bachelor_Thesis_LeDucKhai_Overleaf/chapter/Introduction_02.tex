@@ -1,0 +1,27 @@
+\section{Motivation}
+\label{sec: Motivation}
+
+Large amounts of labeled training data benefit neural networks. 
+However, labeled data is much more difficult to obtain in many settings than unlabeled data: current speech recognition systems require thousands of hours of transcribed speech to achieve acceptable performance, which is not available for the vast majority of the nearly 7,000 languages spoken globally \cite{ethnologue}. 
+Learning solely from labeled examples is not comparable to human language acquisition: infants learn language by listening to adults around them - a process that necessitates the acquisition of good representations of speech.
+Therefore, semi-supervised learning aims to work like the natural language acquisition of human.
+
+Unsupervised and semi-supervised methods have been shown to be successful in \glsxtrshort{ASR} in recent years. 
+\glsxtrshort{Wav2vec 2.0} \cite{wav2vec2}, in particular, has demonstrated excellent performance. 
+\glsxtrshort{Wav2vec 2.0} is pre-trained using an unsupervised loss before being fine-tuned on labeled data.
+The goal of the paper is to offer a framework for self-supervised learning of representations from raw audio data. 
+This framework opens the door for speech recognition models to be used in a low-resource language like Vietnamese in medical domain where previously much more transcribed audio data was required to provide acceptable accuracy. 
+The model is then fine-tuned on labeled data in a hybrid framework \cite{RASR-hybrid_vs_attention} after pre-training on unlabeled speech.
+
+In the HYKIST Project, we want to utilize the \glsxtrshort{Wav2vec 2.0} model. 
+One interesting aspect of \glsxtrshort{Wav2vec 2.0} is that the unsupervised pre-training is well suited for exploiting unlabeled multilingual data so that supervised training on a target language gains benefit from multilingual speech representations. 
+In \cite{xlsr53}, the authors focused on learning representations from unlabeled data that generalize across languages in a multilingual scenario. 
+They built on \glsxtrshort{Wav2vec 2.0} pretraining technique, in which a discrete vocabulary of \glsxtrshort{latent_speech_representations} is learned alongside contextualized speech representations. 
+We can utilize their public model \glsxtrshort{XLSR-53} because it was unsupervised pretrained on 8 languages from Multilingual LibriSpeech \cite{multiling_librispeech}, 17 languages from the BABEL benchmark \cite{BABEL_dataset}, which is conversational telephone data with Vietnamese language included, as well as 36 languages from CommonVoice \cite{CommonVoice_dataset}, which is a corpus of read speech. 
+With the exception of resource-rich languages, multilingual pretraining surpassed monolingual pretraining in most circumstances.
+
+%\colorbox{Lavender}{Hybrid framework (Chris paper)}
+
+%\colorbox{Lavender}{Aux loss}
+
+\pagebreak

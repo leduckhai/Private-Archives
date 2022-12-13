@@ -1,0 +1,35 @@
+\section{Intermediate loss analysis}
+
+\subsection{Studies on Intermediate Focal Loss design}
+
+\input{tables/WER_intLoss_multiple_layer}
+
+In Table \ref{WER_intLoss_multiple_layer}, we study variants of putting \glsxtrshort{IF Loss} at different layers. 
+For \textit{Large}\textsubscript{1-8} model, we observe the performance degradation when moving the single \glsxtrshort{IF Loss} to different layers, while this gives mix results for the \textit{Base} model.
+\cite{lee2021intermediate} also reports the same behavior when using Intermediate CTC Loss on 12-layer, 24-layer and 48-layer models in a supervised-only scenario. 
+When applying 2 intermediate layers, we meet the degradation of performance for both \textit{Base} and \textit{Large}\textsubscript{1-8} models. 
+From the experimental results, we therefore conclude that: Single \glsxtrshort{IF Loss} in the middle network layer yields the best result among variants.
+
+
+\subsection{On-off Regularization technique}
+
+\input{tables/on_off_regularization}
+
+To better exploit the \glsxtrshort{IF Loss}, we introduce the "\textbf{On-off Regularization} technique". 
+We experiment this technique for raw waveform from scratch training.
+Experimental results in Table \ref{on_off_regularization} show that, if we train without any regularization techniques ("Off Regularization" stage) for the first 3 epochs and then reset the learning rate and continue training with all regularizations turned on ("On Regularization" stage), we achieve the \glsxtrshort{WER}s reduction from 33.0\% and 38.8\% to 32.5\% and 38.4\% on dev and test set respectively compared to the baseline. 
+
+In the future work, we plan to apply the "On-off Regularization" technique to other pretraining schedules.
+
+\subsection{Combination of L2 regularization and Intermediate Focal Loss}
+
+\input{tables/L2_comb}
+
+Due to time constraint and project requirement, we only tune L2 regularization values in favor of HYKIST data performance.
+By using grid-search technique for right L2 value selection, we are able to reduce \glspl{WER} of multiple pretraining schedules as shown in Table \ref{table:L2_comb}.
+Notable results are seen on raw waveform from scratch training, where \glspl{WER} reduce from 33.0\% and 38.8\% (only \glsxtrshort{IF Loss}) to 31.4\% and 36.4\% (combination with L2 regularization) on dev and test set respectively, that makes \glsxtrshort{WERR} 5.5\% in average.
+
+We stick with default parameters for \glsxtrshort{ICE Loss} and \glsxtrshort{IF Loss} because \glsxtrshort{WER}s do not fluctuate significantly when choosing other parameters.
+However, the right parameters for L2 regularization are chosen based on grid-search strategy and different parameters make the \glsxtrshort{WER}s vary greatly.
+Therefore, we recommend the use of L2 regularization should be the last regularization effort in the entire regularization pipeline due to its higher sentitivity to \glsxtrshort{WER}s compared to \glsxtrshort{ICE Loss} and \glsxtrshort{IF Loss}. 
+

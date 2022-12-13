@@ -1,0 +1,22 @@
+\section{Lexicon and language model}
+
+\input{tables/LM_stats}
+
+\subsection{Lexicon}
+
+The Babel project\footnote{\href{https://www.iarpa.gov/research-programs/babel}{https://www.iarpa.gov/research-programs/babel}} provided us the initial lexicon for the Vietnamese language.
+The training lexicon is then created by extending the initial lexica with the toolkit Sequitur Grapheme-To-Phoneme\footnote{\href{https://github.com/sequitur-g2p/sequitur-g2p}{https://github.com/sequitur-g2p/sequitur-g2p}} \cite{bisani2008g2p}.
+We supplement the lexicon with medical terms provided by our project partner Triaphon in order to decode the HYKIST data.
+The final recognition lexica for Vietnamese are 11k in size as shown in Table \ref{table:LM_stats}.
+
+
+\subsection{Language model}
+
+\glspl{LM} used are 4-grams and use entire words. 
+We create our \glspl{LM} using the training pipeline from the SRILM toolkit \cite{stolcke2002srilm}.
+The first step is to create a \glsxtrshort{LM} for each monolingual text corpus separately. 
+Then, using a weighting procedure, we merge all \glspl{LM}  into a single \glsxtrshort{LM}, producing one \glsxtrshort{LM} for Vietnamese language.
+Using the development text, interpolation weights can be determined by giving highest weight to the source language models that have the lowest perplexity on the specified development set.
+
+Table \ref{table:LM_stats} demonstrates how the \glsxtrshort{LM} performs. 
+Vietnamese \glsxtrshort{LM} achieves a \glsxtrfull{PPL} of 67 and a \glsxtrfull{OOV} rate of 0.1\% on dev set.

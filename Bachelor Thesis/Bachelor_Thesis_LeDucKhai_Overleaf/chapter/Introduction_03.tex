@@ -1,0 +1,26 @@
+\section{Related work}
+\label{sec: Related_work}
+
+Having been an established and effective method for \glsxtrshort{ASR}, hybrid modeling has made steady progress in recent years and outperformed \glsxtrfull{E2E} approach in most \glsxtrshort{ASR} situations \cite{RASR-hybrid_vs_attention}.
+Besides, the recent introduction of novel neural encoders has been reported to significantly improve the performance \cite{facebook2020hybrid, google2020conformer, zeineldeen2022conformer}.
+Other methods can also be used to achieve even greater improvements, like feature combination \cite{vieting2021waveform} or additional losses in the intermediate layers \cite{facebook2020dejavu}.
+Furthermore, unsupervised approaches have grown in popularity due to their potential for high performance with little annotated data \cite{mohamed2022representation_review}. 
+Semi-supervised learning was applied to an \glsxtrshort{ASR} task by \cite{deepmind2020cpc, facebook2019wav2vec, wav2vec2} by running unsupervised pre-training on a large unlabeled dataset, followed by fine-tuning on a small annotated dataset.
+This technique can significantly reduce the amount of labeled data required to build \glsxtrshort{ASR} systems.
+The successes sparked additional research into improving the modeling approach \cite{facebook2021hubert, facebook2022wav2vecaug} and analyzing which individual components contribute most to the performance \cite{livescu2021wav2vec_analysis}.
+Besides, data used for pre-training and fine-tuning was deeply investigated as well, for example, in a domain-shift scenario \cite{robust_wav2vec2} in English language or using multilingual data for the sake of improvements on monolingual benchmarks \cite{xlsr53}.
+
+Because the contrastive loss is computed solely on the input speech audio and does not require labels, it is especially simple to use for monolingual or multilingual data.
+Therefore, a number of papers have begun to apply this loss for \glsxtrshort{ASR} research \cite{xlsr53, microsoft2021unispeech, zhang2021xlst, google2022just}.
+Previously, supervised training with multilingual data could improve low resource languages by using a separate output layer for each language \cite{tuske2014multilingual}.
+There has also been research specifically addressing medical domain tasks.
+However, a common problem for medical \glsxtrshort{ASR} faced by researchers is difficult acoustic conditions and a lack of transcribed medical audio data \cite{edwards2017medicalspeech, chiu2018medconv, kar2021operation}.
+Another difficulty likely to be met is the medical terminology.
+In \cite{sakti2014towards}, a multilingual system for the medical domain is presented.
+Another method for dealing with the medical domain is to correct \glsxtrshort{ASR} errors at the output level \cite{mani2020towardsmedical}.
+
+To the best of our knowledge, unsupervised pretraining methods have mostly been investigated on well-known academic datasets, with no work done on applying them to difficult low-resource medical tasks. 
+Furthermore, no previous work has been published that investigates the use of unsupervised pretraining methods for telephone speech directly on the 8kHz signal without resampling.
+Besides, the analysis of different pretraining data combination and regularization for a medical \glsxtrshort{ASR} system has never been presented.
+
+\pagebreak

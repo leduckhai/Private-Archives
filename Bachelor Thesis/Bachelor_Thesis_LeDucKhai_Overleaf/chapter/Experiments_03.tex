@@ -1,0 +1,153 @@
+\section{Acoustic model}
+\label{ch: Acoustic_model}
+
+
+In this part, our experimental setups for acoustic models are described.
+We use the toolkit 
+RETURNN\footnote{\href{https://github.com/rwth-i6/returnn}{https://github.com/rwth-i6/returnn}} \cite{doetsch2016returnn}
+for supervised training experiments and
+Fairseq\footnote{\href{https://github.com/facebookresearch/fairseq}{https://github.com/facebookresearch/fairseq}} \cite{facebook2019fairseq}
+for unsupervised \glsxtrshort{Wav2vec 2.0} training.
+The recognition is done by using
+RASR\footnote{\href{https://github.com/rwth-i6/rasr}{https://github.com/rwth-i6/rasr}} \cite{rybach2011rasr}.
+We convert the Fairseq models to RETURNN models with an automatic
+conversion toolkit\footnote{\href{https://github.com/rwth-i6/pytorch-to-returnn-converter}{https://github.com/rwth-i6/pytorch-to-returnn-converter}}.
+We will release all training and decoding configurations
+online\footnote{\href{https://github.com/rwth-i6/returnn-experiments}{https://github.com/rwth-i6/returnn-experiments}}\footnote{\href{https://github.com/rwth-i6/i6-experiments}{https://github.com/rwth-i6/i6-experiments}}.
+
+
+\subsection{Supervised-only models}
+
+The training schedule for Vietnamese language's basic systems
+are similar and simply differ in the specifics. Assuming all models, we generate alignments obtained through the use of a \glsxtrshort{GMM}/\glsxtrshort{HMM} procedure will be utilized as labels for neural network training.
+In a supervised setting using \glsxtrshort{fCE}, all models are trained from scratch. The labels used in the \glsxtrshort{AM} modeling are context-dependent phonemes, more specific triphones.
+With 4501 \glsxtrshort{CART} labels in the end, we use a \glsxtrshort{CART} to tie the states. 
+We employ the 40-dimensional Gammatone features as the \glsxtrshort{AM}'s input \cite{schlueter:icassp07}. 
+
+There is no pre-training, so the fine-tuning begins with a random initialization.
+All the fine-tunings from scratch takes 33 epochs.
+We use two distinct neural \glsxtrshort{AM} architectures: \glsxtrshort{Transformer} \cite{Transformer}, and \glsxtrfull{BLSTM} \cite{hochreiter1997long}. 
+
+\textbf{BLSTM}: We strictly adhere to the training recipe in \cite{RASR-hybrid_vs_attention} for the \glsxtrshort{BLSTM} model. 
+The \glsxtrshort{BLSTM} uses 5 layers and 512 per-direction units. 
+The following hyperparameters are used for fine-tuning: 
+The initial learning rate is set at $0.0005$, followed by a hold phase, and finally an exponential decay with decay factor of 0.8 in order to control the learning rate based on CE development set scores.
+In addition, we use Adam optimizer with Nesterov momentum (Nadam) \cite{dozat2016incorporating}.
+Furthermore, a dropout of 10\% is applied to all modules and batch shuffling is turned off.
+A batch size of 40000 frames is employed.
+The SpecAugment \cite{park2019specaugment} algorithm is used for entire model training with masking of
+50\% in the time dimension and 10\% in the feature dimension. 
+This leads to the \glsxtrshort{BLSTM} size of 25M parameters.
+
+\textbf{Transformer}: Our \glsxtrshort{Transformer} training schedule was obtained from \cite{zeineldeen2022conformer, zeineldeen2022robustconformer}. 
+\glsxtrshort{Transformer} has 12 blocks.
+The attention dimension of each Multi-Head Self-Attention module is 768 with 12 attention heads. 
+The dimension of the feed-forward module is 1536 with \glsxtrshort{ReLU} working as an activation function.
+The following hyperparameters are used for fine-tuning: 
+The initial learning rate is set at $10^{-5}$ and a linear warm-up phase to $10^{-4}$ is used, followed by a hold phase, and finally an exponential decay with decay factor of 0.9 until the minimum learning of $10^{-7}$ is reached.
+In addition, we use Adam optimizer with Nesterov momentum (Nadam) \cite{dozat2016incorporating}.
+Furthermore, a dropout of 10\% is applied to all layers of encoder network and we use batch size of 8000 frames.
+Batches are constructed with shuffled data.
+The SpecAugment \cite{park2019specaugment} algorithm is used for entire model training with masking of
+50\% in the time dimension and 10\% in the feature dimension. 
+This leads to the \glsxtrshort{Transformer} size of 90M parameters.
+
+
+\subsection{Models using unsupervised pre-training}
+
+\textbf{XLSR-53}: We look into using a publically accessible model, \glsxtrshort{XLSR-53} \cite{xlsr53}, in addition to pre-training our own models on our specific data.
+We utilize the checkpoint that was not fine-tuned to any language\footnote{\href{https://github.com/facebookresearch/fairseq/tree/main/examples/wav2vec}{https://github.com/facebookresearch/fairseq/tree/main/examples/wav2vec}}. 
+This was pre-trained on 56k hours of speech data from 53 different languages for 19 epochs.
+Additionally, we explore with initializing the \glsxtrshort{Wav2vec 2.0} pre-training on our custom data using the \glsxtrshort{XLSR-53} model, followed by corresponding fine-tuning.
+Note that 16kHz data were used to train the \glsxtrshort{XLSR-53}. 
+We shorten the stride of one \glsxtrshort{CNN} layer in the feature extractor to half because we work with 8kHz telephone conversation.
+In this method, we receive features at the desired frame rate while reducing the down-sampling factor from the waveform to the feature frames by a factor of 2.
+
+\textbf{Pretraining cases}: For each pretrained model we divide into the following cases. 
+\begin{enumerate}
+	\item Instead of a custom pre-training with our available datasets, \glsxtrshort{XLSR-53} is applied directly for the fine-tuning.
+	\item Pre-training on our available datasets from scratch.
+	\item The parameters are initialized with the 
+	\glsxtrshort{XLSR-53} checkpoint and the pre-training is done with our available datasets.
+	We call this type of pre-training continued pretraining.
+\end{enumerate}
+
+\textbf{Wav2vec 2.0 architectures}: We use the topologies from \glsxtrshort{Wav2vec 2.0} for the experiments with unsupervised pre-training \cite{wav2vec2} and customize our own topologies into:
+\textit{Base}, \textit{Large} and \textit{Large}\textsubscript{1-8}.
+All architectures work with the raw audio waveform and have a feature extractor that uses 7 \glsxtrshort{CNN} layers. 
+However, the \textit{Large} architecture has an encoder stack made up of 24 \glsxtrshort{Transformer} layers with dimension of the feed-forward module being 1024 and the number of attention heads being 16. 
+\textit{Base} only has 12 \glsxtrshort{Transformer} layers with dimension of the feed-forward module being 768 and the number of attention heads being 12.
+\glsxtrshort{Wav2vec 2.0} Large model trained on multilingual data makes up the \glsxtrshort{XLSR-53} model \cite{xlsr53}. 
+The 24 \glsxtrshort{Transformer} layers employed in the Large architecture place a heavy burden on the GPU's memory. 
+Training times are dramatically increased when GPU memory is traded for a smaller batch size. 
+We suggest discontinuing the \glsxtrshort{Wav2vec 2.0} Large network after the 
+8\textsuperscript{th} \glsxtrshort{Transformer} block and referring to the model as
+\textit{Large}\textsubscript{1-8}\xspace 
+in order to mitigate.
+We discovered that an optimal trade-off between a large enough batch size and a model size that still fits into memory is 8 layers.
+The cut-off reduces the model size of the full
+architecture \textit{Large} from 317M parameters to 115M of \textit{Large}\textsubscript{1-8}\xspace and is
+therefore much closer to 95M parameters of \textit{Base} architecture.
+In addition to the difference between architectures, 
+
+\textbf{Pretraining}: During pretraining we employ the proposed hyperparameters in the \glsxtrshort{XLSR-53} paper \cite{xlsr53} but apply the learning rate of \glsxtrshort{Wav2vec 2.0} for the monolingual pre-trainings.
+The pre-trainings are done for 300 epochs if there is nothing mentioned otherwise.
+A linear warm-up is used during the first 30 epochs until the learning rate reaches 0.0005 and then a linear decay starts.
+The mini-batch size in the existing Fairseq implementation is specified in samples of the waveform.
+For both \textit{Base} and \textit{Large}\textsubscript{1-8} we use a dropout of 10\% in the feature extractor, 
+5\% in the encoder and 10\% in the latent representations between the feature extractor and encoder.
+We do not apply dropout to pre-trainings with the \textit{Large} architecture.
+a \glsxtrshort{NN} is pre-trained on unlabeled data using the contrastive loss and diversity loss as described in \cite{wav2vec2} using the \glsxtrshort{Wav2vec 2.0} framework.
+
+\textbf{Finetuning}: To finetune the acoustic model, we use the training system described in \cite{RASR-hybrid_vs_attention} to create a baseline \glsxtrshort{GMM}/\glsxtrshort{HMM} model for Vietnamese language. 
+This model is used to generate alignments of the speech data with the \glsxtrshort{CART} labels for the \glsxtrshort{DNN} system. 
+The hybrid model's \glsxtrshort{NN} is trained on these alignments in a supervised manner using the \glsxtrfull{fCE} loss. 
+An application of a two-stage training configuration is made when using unsupervised pre-training.
+After pretraining, the \glsxtrshort{NN} is then fine-tuned by adding a softmax output layer, initializing with a checkpoint from pre-training, training with the \glsxtrshort{fCE} loss on labeled data, and using the same alignment as in the fully supervised scenario.
+The following hyperparameters are used for fine-tuning:
+The initial learning rate is set to $10^{-5}$ and uses a linear warm-up phase to $10^{-4}$ followed by a hold phase and afterwards ends with exponential decay of 0.9.
+The \glsxtrshort{Wav2vec 2.0} SpecAugment variant introduced in \cite{wav2vec2} is used with the masking done by choosing independent random starting points in the time/feature dimension and the subsequent 10/64 steps are masked.
+We employ a mini-batch size of 1875 frames with length of 10ms, leading to the audio of 18.75 seconds.
+Furthermore, a gradient noise of 10\% is used and we also apply a dropout of 5\% to all layers of both feature extractor and Transformer encoder network.
+
+In addition to dropout \cite{dropout}, we also investigate the performance of other regularization techniques like the intermediate loss, L2 and On-off Regularization described in \ref{subsec: Intermediate_loss}, \ref{subsec: L2_regularization} and \ref{subsec: On_off_Regularization}
+
+\subsection{Data augmentation}
+
+In this thesis, apart from the use of SpecAugment \cite{park2019specaugment} stated above, we also use other data augmentation techniques in the pretraining stage.
+
+The augmentation was exclusively done using the speed perturbation \{90\%, 110\%, 115\%\} \cite{speed_perturbation}, random pitch perturbation \{-350:-250; 250:350\} \cite{pitch_perturbation} and reverberation perturbation \cite{reverb_perturbation}. 
+We did not go further to analyze if these augmentation options are the most optimal.
+
+\subsection{Intermediate loss}
+\label{subsec: Intermediate_loss}
+
+Our intermediate loss setups are based on \cite{facebook2020dejavu, zeineldeen2022conformer}. 
+Besides, we have 2 variants of intermediate loss, namely \glsxtrfull{ICE Loss}, which uses \glsxtrfull{CE} loss and \glsxtrfull{IF Loss}, which replaces\glsxtrfull{CE} loss with focal loss \cite{focal_loss}.
+
+\textbf{\glsxtrshort{ICE Loss}}: We conducted multiple experiments with intermediate loss scales ranging in \{0.1, 0.2, 0.3, 0.4, 0.5\} and dropout \cite{dropout} values ranging in \{0.05, 0.1\}. 
+We saw that the combination of loss scale 0.3 and dropout value 0.1 yielded the best results for all pretrained models and architectures, so we take this as default for all next experiments.
+
+\textbf{\glsxtrshort{IF Loss}}: We experimented with 3 ways of integrating focal loss into the vanilla intermediate loss setup: only in the network \glsxtrshort{CE} output layer, only in the intermediate loss layer and in both of them. 
+We found that putting the focal loss in both 2 positions yielded better result.
+To find a good focal loss value, we conducted experiments with multiple values in \{1.5, 2.0, 2.5, 3.0\}. 
+The higher the value is, the more on labels the network is forced to "focus". 
+We saw that the 2 values \{1.5, 2.0\} did not make difference in results, while for higher focal values \{2.5, 3.0\}, the model gained more benefits on in-house training set but hurt the performance on out-domain recognition test sets. 
+We highly recommend the use of focal value 2.0 so that the model generalizes on all different test sets.
+
+\subsection{L2 regularization}
+\label{subsec: L2_regularization}
+
+To find good values of L2 regularization \cite{L2_regularization}, we used grid-search technique. 
+We tested the value ranging in \{0.01, 0.005, 0.001, 0.0005, 0.0001\} to see the resulting \glsxtrfull{WER}.
+Each pretraining model and architecture has its own unique L2 value to work best.
+We put L2 regularization at all linear layers in the network.
+
+\subsection{On-off Regularization}
+\label{subsec: On_off_Regularization}
+
+To further improve the accuracy performance of \glsxtrshort{IF Loss}, we introduce a new regularization technique called "On-off Regularization technique". 
+We turn off all regularizations (Dropout, SpecAugment and \glsxtrshort{IF Loss}) in the first stage of training (3-10 first epochs).
+We call this stage "Off Regularization".
+We then reset the learning rate and turn all regularizations back on in the second stage of training, which we call "On Regularization".
+The second stage of training ends when the model is fully converged.

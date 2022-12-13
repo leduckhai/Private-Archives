@@ -1,0 +1,19 @@
+\chapter{Experimental results}
+\label{ch: Experimental_results}
+
+
+\section{Supervised baselines}
+
+\input{tables/supervised_baselines}
+
+The baseline for Vietnamese is trained using the relevant in-house 8kHz monolingual telephone speech data.
+The performance of the baseline \glsxtrshort{ASR} systems is displayed in Table \ref{table:supervised_baselines}.
+The intrinsic difficulty of the language and the data causes the systems to function differently.
+We believe there are various causes for this.
+Due to the natural flow of speakers, the Vietnamese transcriptions are hard to reach high quality.
+Additionally, Vietnamese also incorporates accented speech which is even difficult for native speakers to fully understand. 
+Furthermore, the accent mismatch between Vietnamese fine-tuning and recognition data is also a major factor to the degradation of performance.
+Our Vietnamese in-house dataset has dominantly 2 native accents, Northern and Central Vietnamese, and a very small fraction of Southern Vietnamese native accent, while HYKIST, because of being a simulation dataset, has unique accents - foreign-born accents - from both interpreter and patient sides.
+
+On the HYKIST data, switching from a \glsxtrshort{GMM}/\glsxtrshort{HMM} framework to a hybrid \glsxtrshort{HMM} framework with a \glsxtrshort{RNN}-\glsxtrshort{BLSTM} results in a reduction of \glsxtrshort{WER} from 62.2\% and 59.7\% to 32.9\% and 38.4\% on dev and test set respectively.
+Besides, the \glsxtrshort{WER}s continue decreasing to 31.0\% and 35.1\% by replacing \glsxtrshort{BLSTM} with  \glsxtrshort{Transformer} encoder.

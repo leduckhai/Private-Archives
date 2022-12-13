@@ -1,0 +1,100 @@
+\definecolor{fh-mint}{RGB}{0,177,172}
+\def\hlmint{\fontfamily{lmss}\fontsize{19pt}{19pt}\fontseries{b}\color{fh-mint}\selectfont}
+\def\hlAbold{\fontfamily{lmss}\fontsize{14pt}{30pt}\fontseries{b}\selectfont}
+\def\hlAnormal{\fontfamily{lmss}\fontsize{14pt}{14pt}\fontseries{n}\selectfont}
+
+\newcommand{\showlogo}{
+    % Due to a bug this code does not reliably work
+
+    % \begin{tikzpicture}[remember picture,overlay]
+    %     \node[anchor=north east,inner sep=0pt] at (current page.north east)
+    %     {\includegraphics[height=4cm]{fh-logo-right}};
+    % \end{tikzpicture}
+
+    \begin{picture}(0pt,0pt)(2cm,-2cm)
+        % Logo zeichnen
+        % \put(18cm,-3cm){\includegraphics[height=4cm]{fh-logo-right}}
+        % \put(13cm,-2cm){\includegraphics[height=3.5cm]{images/rwth-fh-logo.png}}
+        \put(17cm,-4cm){\includegraphics[height=5cm]{images/fh-logo-right.png}}
+        \put(-0.5cm,-2.3cm){\includegraphics[height=5cm]{images/RWTH-Aachen-University.png}}
+    \end{picture}
+    
+}
+
+\ExplSyntaxOn
+\keys_define:nn { titlepage }
+{
+    organization .tl_set:N  = \l__titlepage_organization_tl,
+    title  .tl_set:N  = \l__titlepage_title_tl,
+    type .tl_set:N  = \l__titlepage_type_tl,
+    faculty .tl_set:N  = \l__titlepage_faculty_tl,
+    department .tl_set:N  = \l__titlepage_department_tl,
+    author  .tl_set:N  = \l__titlepage_author_tl,
+    matrikel  .tl_set:N  = \l__titlepage_matrikel_tl,
+    place  .tl_set:N  = \l__titlepage_place_tl,
+    date .tl_set:N  = \l__titlepage_date_tl,
+    
+    examiner .tl_set:N  = \l__titlepage_examiner_tl,
+    secondExaminer .tl_set:N  = \l__titlepage_second_examiner_tl,
+    advisorFirst .tl_set:N  = \l__titlepage_advisorFirst_tl,
+    advisorSecond .tl_set:N  = \l__titlepage_advisorSecond_tl,
+}
+
+\NewDocumentCommand { \makeTheTitlepage } { +m }
+{
+    \group_begin:
+    \keys_set:nn { titlepage } { #1 }
+    \title{\l__titlepage_title_tl}
+    \author{\l__titlepage_author_tl}
+    \date{\l__titlepage_date_tl}
+    \begin{titlepage}
+        \showlogo
+        \vspace*{2cm}
+        \begin{center}
+            {
+                % \fontsize{20}{30}
+                % \selectfont
+                {\hlmint \l__titlepage_organization_tl}
+
+                \par \hlAbold
+                \l__titlepage_faculty_tl
+
+                \vspace*{0.5cm}
+
+                \par
+                \begin{spacing}{1.5}
+                    \hlAnormal \l__titlepage_department_tl
+                \end{spacing}
+            }
+
+            \vspace*{1cm}
+            \par \l__titlepage_type_tl
+            \par \hlAbold \l__titlepage_title_tl
+
+            \vspace*{1cm}
+
+            \par \hlAnormal \l__titlepage_author_tl
+            \vspace*{0.5cm}
+            \par \hlAnormal \l__titlepage_matrikel_tl
+            \vspace*{0.5cm}
+            \par \hlAnormal \l__titlepage_place_tl,~\l__titlepage_date_tl
+            
+            \vspace*{1cm}
+            \par
+            \begin{tabularx}{\textwidth}{ X  X  }
+                Referent:        & \l__titlepage_examiner_tl        \\[2em]
+                Koreferent:        & \l__titlepage_second_examiner_tl \\[2em]
+                Forschungsleiter: &
+                \l__titlepage_advisorFirst_tl \\[2em]
+                Forschungsleiter: &
+                \l__titlepage_advisorSecond_tl \\
+            \end{tabularx}
+            \par \hlAnormal
+        \end{center}
+
+    \end{titlepage}
+    \group_end:
+}
+\ExplSyntaxOff
+
+

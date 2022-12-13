@@ -1,0 +1,27 @@
+\section{Encoder and initialization comparison}
+
+
+\subsection{Encoder comparison}
+
+\input{tables/encoder_compare_pretrain}
+
+We compare the performance of 2 types of encoder: \textit{Base} and \textit{Large}\textsubscript{1-8}.
+As shown in Table \ref{table:encoder_compare_pretrain}, we receive mix results for various pretraining schedules: no pretraining, pretraining on in-house data and pretraining on multilingual data.
+It is mentioned by \cite{irie2019language} in language modeling that the \textit{Base} architecture works better than the \textit{Large}.
+However, in acoustic modeling in \glsxtrshort{ASR}, our results prove against this statement.
+Considering the amount of parameters between \textit{Base} and \textit{Large}\textsubscript{1-8}, 97M vs. 118M, we recommend the use of \textit{Base} in order to keep the performance competitive to \textit{Large}\textsubscript{1-8} while reducing the number of trainable parameters.
+
+%\input{tables/encoder_feature_compare}
+%\input{tables/encoder_compare_RawWF}
+
+\subsection{Initialization comparison}
+
+\input{tables/encoder_compare_shortPretrain}
+
+In the case of super short pretraining (1 epoch pretraining on only 0.01h of data), the results outperform those of raw waveform from scratch for both \textit{Base} and \textit{Large}\textsubscript{1-8} architecture as shown in Table \ref{table:encoder_compare_shortPretrain}.
+The reason for the improvement comes from the difference of initialization schemes.
+The parameters from the pretrained model are first initialized by Fairseq \cite{facebook2019fairseq} using Kaiming Initialization \cite{He_2015_ICCV}, and then fed into RETURNN \cite{doetsch2016returnn}, while the parameters for raw waveform training are initialized directly by RETURNN using Glorot (also known as Xavier) Initialization \cite{glorot2010understanding}.
+We therefore recommend the use of Kaiming Initialization for \glsxtrshort{Wav2vec 2.0} architecture.
+
+%\input{tables/encoder_compare_augment}
+%\input{tables/feature_compare}

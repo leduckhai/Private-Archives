@@ -1,0 +1,76 @@
+\section{Effectiveness of intermediate loss}
+
+
+\subsection{Effectiveness of Intermediate Cross-Entropy Loss}
+
+%\input{tables/int_and_focal_WERs}
+%\input{tables/int_and_focal_WERs_CV_Vivos}
+
+\textbf{Improvement on HYKIST data}: In Table \ref{table:int_loss_hykist_pos}, when using in-house telephone dataset to train and transcribe the HYKIST dataset with the help of \glsxtrshort{ICE Loss}, we report the total improvement in performance for from scratch experiment where the \Glspl{WER} decrease from 35.6\% and 40.7\% to 33.8\% and 38.1\% on dev and test set respectively.
+For \glsxtrshort{YT} experiment, the \Glspl{WER} decrease from 29.8\% and 35.2\% to 27.3\% and 31.5\%.
+We also report a small improvement for the combination of Vietnamese in-house data and \glsxtrshort{YT} data, from 25.3\% and 27.2\% to 25.1\% and 27.1\%.
+
+\input{tables/int_loss_hykist_pos}
+
+\textbf{Degradation on HYKIST data}: As shown in Table \ref{table:int_loss_hykist_neg}, for the directly finetuning experiment with \glsxtrshort{XLSR-53} preloaded, the performance is hurt totally (both \Glspl{WER} on dev and test sets increase).
+Besides, both continued pretrainings on Vietnamese in-house and on \glsxtrshort{YT} data experience the partial improvements (only \Glspl{WER} on test sets are slightly increased but \Glspl{WER} on dev sets decrease).
+The rest pretraining schedules in Table \ref{table:int_loss_hykist_neg} also experience partial improvements.
+
+\input{tables/int_loss_hykist_neg}
+
+\textbf{Improvement on CommonVoice and VIVOS data}: In the situation of more out-of-domain recognition shown in Table \ref{int_loss_cvvivos_pos}, which means using the model finetuned on our in-house spontaneous telephone speech dataset to do the recognition on read speech datasets like CommonVoice and VIVOS, we report the total improvements in performance for \textit{Large}\textsubscript{1-8} in-house pretraining, from scratch and \glsxtrshort{YT} experiments. 
+Notable is from scratch training where \glsxtrshort{WER}s reduce from 20.8\%, 44.7\%, 34.9\% to 18.6\%, 42.1\%, 33.1\%; and \glsxtrshort{YT} pretraining where \glsxtrshort{WER}s reduce from 16.4\%, 34.4\%, 28.7\% to 15.6\%, 32.2\%, 27.6\% on CommonVoice dev/test and VIVOS test set respectively.
+Together with the improvements on HYKIST reported in Table \ref{table:int_loss_hykist_pos}, we conclude that using \glsxtrshort{ICE Loss} for from scratch training and for pretraining on \glsxtrshort{YT} data improves the recognitions on both telephone and read speech domain.
+
+\input{tables/int_loss_cvvivos_pos}
+
+\textbf{Degradation on CommonVoice and VIVOS data}: As shown in the Table \ref{int_loss_cvvivos_neg}, we experience the total degradations for 2 cases: continued pretraining on Vietnamese in-house data and pretraining on the combination of in-house and \glsxtrshort{YT} data; where \glsxtrshort{WER}s for all read speech test sets increase.
+The rest cases experience partial degradations.
+
+\input{tables/int_loss_cvvivos_neg}
+
+\bigskip
+
+\subsection{Effectiveness of Intermediate Focal Loss}
+
+\textbf{Effectiveness on HYKIST data}: 
+
+As shown in Table \ref{table:if_loss_hykist_pos} and Table \ref{table:if_loss_hykist_neg} below, when using \glsxtrshort{IF Loss}, we see the \Glspl{WER} on HYKIST improved compared to the baselines for various pretraining schedules (7/9 experiments experience total improvements), compared to only 3/9 experiments experiencing total improvements using \glsxtrshort{ICE Loss} (\glsxtrshort{ICE Loss} results are shown in Table \ref{table:int_loss_hykist_pos} and Table \ref{table:int_loss_hykist_neg} above).
+In addition, we report all \Glspl{WER} of \glsxtrshort{IF Loss} experiments to be lower than those of \glsxtrshort{ICE Loss} experiments, except the one on HYKIST test set of from scratch training. 
+We therefore conclude that, when finetuning and recognizing on the same telephone domain, \glsxtrshort{IF Loss} works better than \glsxtrshort{ICE Loss}. 
+
+Compared to our strongest continued pretraining baseline, the application of \glsxtrshort{IF Loss} on the combination of Vietnamese in-house and \glsxtrshort{YT} data (24.5\% and 27.1\%) outperforms the results of continued pretraining on the combination of Vietnamese in-house and \glsxtrshort{YT} data (24.5\% and 27.2\% on dev and test set respectively as shown in Table \ref{table: xlsr53_init_pretrain}).
+However, we believe that the \glsxtrshort{IF Loss} can further reduce \glsxtrshort{WER}s for this continued pretraining schedule, as it does with continued pretraining on \glsxtrshort{YT} data. 
+
+Among all total improvements reported in Table \ref{table:if_loss_hykist_pos}, notable is the \Glspl{WER} reduction of \glsxtrshort{YT} experiment from 29.8\% and 35.2\% to 26.1\% and 30.8\% on dev and test set respectively, whose relative \glsxtrshort{WERR} is around 12.5\% in average.
+For a more diverse pretrained data (Vietnamese in-house data), we report the \glsxtrshort{WER}s reduction from 30.4\% and 33.4\% to 28.6\% and 33.0\%, whose relative \glsxtrshort{WERR} is around 3.6\% in average.
+For even more diverse pretrained data (Vietnamese in-house  + \glsxtrshort{YT} data), we report the \glsxtrshort{WER}s reduction from 25.3\% and 27.2\% to 24.5\% and 27.1\%, whose relative \glsxtrshort{WERR} is around 1.8\% in average.
+We therefore conclude that the effectiveness of \glsxtrshort{IF Loss} decreases when the pretrained data becomes more diverse.
+
+
+\input{tables/if_loss_hykist_pos}
+
+As shown in Table \ref{table:if_loss_hykist_neg}, only for the case of directly finetuning with \glsxtrshort{XLSR-53}, using \glsxtrshort{IF Loss} makes the \Glspl{WER} on HYKIST increased compared to the baselines. 
+However, the degradation is rather small, from 27.9\% and 32.3\% to 28.0\% and 32.8\% on dev and test set respectively.
+Besides, a partial degradation of performance is reported in the multilingual in-house data experiment, where the  average \glsxtrshort{WER} of dev and test set (25.2\% and 29.3\%) is even lower than the baseline (26.8\% and 28.7\%).
+Hence, in a rapid deployment of an \glsxtrshort{ASR} system, we recommend the direct use of \glsxtrshort{IF Loss} in training without the need of one more training as a baseline for performance comparison.
+
+\input{tables/if_loss_hykist_neg}
+
+\bigskip
+
+\textbf{Effectiveness on CommonVoice and VIVOS data}: 
+
+In the larger domain-shift recognition, we still receive the significant reduction of \Glspl{WER} in multiple experiments as shown in Table \ref{table:if_loss_cvvivos_pos}. 
+The notable reduction of \Glspl{WER} compared to baselines is again on \glsxtrshort{YT} data, whose \Glspl{WER}s decrease from 16.4\%, 34.4\% and 28.7\% to 14.5\%, 30.9\% and 26.9\% respectively for 3 read speech sets, that makes \glsxtrshort{WERR} about 9.3\% in average.
+The \glsxtrshort{ICE Loss} in Table \ref{int_loss_cvvivos_pos} makes 3 experiments totally improved, while the \glsxtrshort{IF Loss} makes 4. 
+Furthermore, the \glsxtrshort{WER}s for \glsxtrshort{IF Loss} on 3 read speech datasets are as competitive as \glsxtrshort{ICE Loss}.
+In addition, when finetuning and recognizing on the same telephone domain, \glsxtrshort{IF Loss} works better than \glsxtrshort{ICE Loss} as proved above.
+We therefore conclude that \glsxtrshort{IF Loss} works better than \glsxtrshort{ICE Loss} in all domains.
+
+\input{tables/if_loss_cvvivos_pos}
+
+However, in the larger domain-shift recognition, we still meet degradations of performance in experiments pretrained on diverse data, as shown in Table \ref{table:if_loss_cvvivos_neg}.
+We therefore recommend the use of \glsxtrshort{IF Loss} only for less diverse pretrained data if the domain of finetuning and recognition data are too different.
+
+\input{tables/if_loss_cvvivos_neg}

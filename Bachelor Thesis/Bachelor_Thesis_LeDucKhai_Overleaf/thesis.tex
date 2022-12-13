@@ -1,0 +1,92 @@
+\include{header/header}
+\include{header/glossary_settings}
+\include{header/title_macros}
+
+\addbibresource{misc/literature.bib}
+
+\begin{document}
+\include{misc/abbreviations}
+%\include{misc/glossary}
+
+% Replace by useful values!
+\makeTheTitlepage{
+    organization={FH Aachen},
+    title={Unsupervised Pre-Training for Vietnamese \\ Automatic Speech Recognition in the HYKIST Project},
+    type={Bachelorarbeit},
+    faculty={Fachbereich Medizintechnik und Technomathematik},
+    department={Bachelorstudiengang Biomedizinische Technik},
+    author={Le Duc Khai},
+    matrikel={Matrikelnummer: 3089345},
+    place=Jülich,
+    date=\today,
+    examiner={Prof. Dr. rer. nat. Ilya E. Digel, FH Aachen},
+    secondExaminer={Christoph M. Lüscher M.Sc., RWTH Aachen},
+    advisorFirst={Sen. Prof. Dr.-Ing. Hermann Ney, RWTH Aachen},
+    advisorSecond={PD Dr. rer. nat. Ralf Schlüter, RWTH Aachen},
+}
+
+%\includepdf[pages={1}]{docs/ba_faber_punctuation}
+
+\clearpage
+
+\include{chapter/Erklaerung}
+
+\tableofcontents
+
+\begin{spacing}{1.2}
+    %\include{chapter/introduction}
+    %\include{chapter/demo_chapter}
+
+    \include{chapter/Abstract}
+    
+    \include{chapter/Introduction_01}
+    \include{chapter/Introduction_02}
+    \include{chapter/Introduction_03}
+    
+    \include{chapter/Theory_01}
+    \include{chapter/Theory_02}
+    \include{chapter/Theory_03}
+    
+    \include{chapter/Experiments_01}
+    \include{chapter/Experiments_02}
+    \include{chapter/Experiments_03}
+    
+    \include{chapter/Experimental_results_01}
+    \include{chapter/Experimental_results_02}
+    %\include{chapter/Experimental_results_03}
+    \include{chapter/Experimental_results_04}
+    \include{chapter/Experimental_results_05}
+    \include{chapter/Experimental_results_06}
+    \include{chapter/Experimental_results_07}
+    
+    \include{chapter/Conclusion}
+    
+    \appendix
+    %\include{chapter/appendix}
+
+    \printbibliography[heading=bibnumbered,
+    title={Bibliography}]
+
+    %\include{misc/symbols}
+    \glsaddall[types={symbolslist,glossaryx}]
+
+    % This command would add *all** non-mentioned glossary entries (e.g. the acronyms)
+    % \glsaddall
+    % It's better to mention those in the text via 
+    % \acrlong{BMS}, \acrshort{BMS}, and \acrfull{BMS}.
+    % Because then the page numbers occur correctly in the list of acronyms
+    \clearpage
+
+    %\printglossary[type=symbolslist,style=symbunitlong,title=List of Symbols]
+    \printglossary[type=acronym, title=List of Abbreviations and Glossaries]
+
+    %\printglossary[type=glossaryx,style=glossaryxstyle,title=Glossary]
+    %\printglossary[type=glossaryx, title=Glossary]
+   
+    \listoffigures
+    \listoftables
+    
+\end{spacing}
+
+\end{document}
+

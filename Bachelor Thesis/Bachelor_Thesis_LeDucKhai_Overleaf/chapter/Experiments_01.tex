@@ -1,0 +1,88 @@
+\chapter{Experiments}
+\label{ch: Experiments}
+
+
+\section{Data}
+
+The first difficulty faced during the research in the HYKIST project is the lack of medical telephone speech dataset.
+Having a small medical dataset - HYKIST, we therefore use HYKIST only for the recognition and use in-house non-medical telephone speech dataset for training. 
+This poses a challenge to reach a high-performance ASR because of the mismatch in training and recognition datasets.
+In addition, real-life dataset like HYKIST is difficult to be accurately transcribed by ASR models because of background noises, variation of speaking speed, unfamiliar pronunciation of medical terms...
+
+
+\subsection{HYKIST data}
+
+Our HYKIST project partner Triaphon recorded conversations between three people: a patient, a doctor, and an interpreter. 
+The patient communicates in the non-German language - Arabic or Vietnamese - while the doctor communicates in German. 
+The interpreter is fluent in both languages and assists the patient and doctor in communicating. 
+In HYKIST, we have unique accents, foreign-born accents, from both interpreter and patient sides.
+This directly makes HYKIST more difficult for machines and humans to transcribe, leading understandable bad recognition performance.
+We received the audio recordings and had our transcribers perform speech transcription within the recordings. 
+We divide the audio data into two sets: dev and test, with no speaker overlap between the two.
+
+The data statistics for the dev and test sets for each individual language can be seen in Table \ref{table:data_stats}.
+We only have a limited amount of data because we create it ourselves.
+Furthermore, the number of speakers is limited, resulting in a low level of diversity in the testing data.
+This may result in over-optimization of the evaluation data.
+To address the impact of the data issues, we obtained additional training data from our industry partner Apptek and other sources.
+
+\input{tables/data_stats}
+
+\subsection{In-house data}
+
+AppTek, an industry partner, supplied us with annotated 8kHz conversational telephone speech data.
+The audio data was collected during telephone conversations between customers and various call centers.
+Table \ref{table:data_stats} displays the data statistics for the training sets for each of the three languages.
+We can see that the amount of training data available varies between languages.
+
+We also have speakers with accents and/or dialects for the Arabic and Vietnamese data.
+For the Arabic data, we have four different datasets with distinct dialects: Syrian, Lebanese, Gulf, and Egyptian.
+Besides, our Vietnamese dataset has dominantly 2 accents, Northern and Central Vietnamese, and a very small fraction of Southern Vietnamese accent.
+The speakers with accents in the Vietnamese data are combined into a single dataset.
+
+\subsection{YouTube}
+
+We collected Vietnamese audio data from \glsxtrfull{YT} under Fair Use Policies\footnote{\href{https://support.google.com/youtube/answer/9783148}{https://support.google.com/youtube/answer/9783148}} in addition to our annotated datasets.
+The domain in question is purely read speech, such as podcasts, audiobooks, radio stories, or something similar.
+Pre-processing was done manually by removing non-speech parts such as music and noise, leaving only speech.
+The audio files were then divided into 10-30 second segments.
+Table \ref{table:data_stats} displays the data statistics for the web scraped data.
+During data collection, we headed to the balance of accents and genders.
+Therefore, the dataset is divided into Northern and Southern accents, yielding four subsets: Northern Female (518h), Northern Male (213h), Southern Female (290h) and Southern Male (183h).
+
+%\subsection{VLSP}
+
+%The VLSP dataset is a spontaneous-reading speech dataset provided by Association for Vietnamese Language and Speech Processing.
+%The 2021 version\footnote{\href{https://vlsp.org.vn/vlsp2021/eval/asr}{https://vlsp.org.vn/vlsp2021/eval/asr}} includes 280 hours of transcribed data in the general domain and 400 hours of untranscribed data.
+%The dataset is recorded in different real scenarios e.g., meeting conversation, lecture speech. 
+%To evaluate our models, we use \cite{Duy_Khanh_Finetune_Wav2vec_2_0_2022}'s model which was trained on 100h of VLSP dataset, together with CommonVoice and VIVOS described below.
+
+\subsection{CommonVoice Vietnamese}
+
+We obtain the Vietnamese dataset from the massively-multilingual speech corpus  \cite{ardila2020commonvoice}. 
+We use the data version 9.0\footnote{\href{https://commonvoice.mozilla.org/en/datasets}{https://commonvoice.mozilla.org/en/datasets}}, which includes 17 hours of noisy read speech data recorded by the large number of volunteer speakers.
+The dataset is split into train/dev/test set. 
+We evaluate our models by directly recognizing on dev and test sets.
+
+\subsection{VIVOS}
+
+VIVOS \cite{vivos_dataset} is a clean Vietnamese read speech corpus consisting of 15 hour recordings.
+We obtain the dataset\footnote{\href{https://ailab.hcmus.edu.vn/vivos}{https://ailab.hcmus.edu.vn/vivos}} split into train/test sets.
+We evaluate our models by directly recognizing on test set.
+The test set includes 19 speakers and 48 minutes of duration in total.
+
+
+\subsection{Monolingual text data}
+
+Apptek, our project partner, provided monolingual text data for all three languages.
+Text from various sources is included in the data.
+The number of running words for each language is shown in Table \ref{table:LM_stats}.
+
+\subsection{Domain}
+
+As shown in Table \ref{table:data_stats} the data spans several domains.
+The HYKIST project's target domain is medical conversational telephone speech.
+The training data does not cover this specific domain.
+This domain mismatch in our data is highlighted.
+By listening to the audios and comparing them to our target domain, we can determine the in-domain match and diversity level.
+

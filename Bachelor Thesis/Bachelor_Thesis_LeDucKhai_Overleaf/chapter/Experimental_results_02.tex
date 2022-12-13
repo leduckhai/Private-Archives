@@ -1,0 +1,74 @@
+\section{Unsupervised Pre-training}
+\label{sec: unsupervised_pretraining}
+
+%\input{tables/unsupervised_training}
+
+\subsection{Monolingual pre-training}
+
+Table \ref{table:monoling_pretraining} shows the outcomes from models pretrained on monolingual data.
+The number of pre-training epochs is decided upon using the best downstream \glsxtrshort{WER} on Vietnamese.
+
+\input{tables/monoling_pretraining}
+
+Even though no additional data is included for pre-training here, pre-training on the monolingual in-house data for Vietnamese reveals a reduction of \glsxtrshort{WER}s from 32.1\% and 36.6\% to 31.4\% and 33.4\% on dev and test set respectively.
+This proves that on \glsxtrshort{Wav2vec 2.0} architecture, the unsupervised pretraining helps the \glsxtrshort{WER} performance.
+
+Next, when we pretrain with the augmented in-house data, we achieve a small improvement to 31.0\% and 32.3\% on dev and test set respectively.
+This shows that data augmentation for pretraining is helpful.
+
+We then examine the impact of pre-training on the \glsxtrfull{YT} data for Vietnamese, which results improvements to 29.8\% and 35.2\%.
+Although \glsxtrshort{YT} data is much more than the in-house data (1168h compared to 219h), both results seem to similar in terms of the average result on dev and test set. 
+This proves that having more data is not always helpful, because of 2 reasons.
+The first reason is that the domain of the in-house data is closer to that of HYKIST (both of them are telephone domain), while the domain mismatch between \glsxtrshort{YT} and HYKIST is larger (read speech compared to telephone speech).
+Another reason is that \glsxtrshort{YT} data has less speakers, leading to worse generalization while pretraining.
+
+The greatest significant improvement is achieved by combining the in-house and \glsxtrshort{YT} data leading to a reduction of \glsxtrshort{WER}s to 25.3\% and 27.2\%.
+This is the best result produced using solely monolingual data. 
+Because we substitute 200 hours of \glsxtrshort{YT} with in-house data, the amount of pre-training data used here is comparable to that of only \glsxtrshort{YT} pre-training. 
+This result proves that a diversity of domains and speakers in the pretraining stage is necessary for better performance on test sets.
+
+
+\subsection{Multilingual pre-training}
+
+\input{tables/multiling_pretraining}
+
+We then examine models that have already been multilingually pre-trained in Table \ref{table:multiling_pretraining}. 
+For Vietnamese dev/test, combining the Arabic, German, and Vietnamese in-house data to create a custom multilingual pre-training significantly outperforms the non-pretraining baseline, at \glsxtrshort{WER}s of 26.8\% and 28.7\% on dev and test set respectively. 
+However, the monolingual combination of in-house and \glsxtrshort{YT} data is still better for Vietnamese, at 25.3\% and 27.2\% on dev and test set respectively.
+These results reject \cite{xlsr53}'s conclusion where multilingual pretraining is proved to outperform monolingual pretraining.
+
+Strong increases of \glsxtrshort{WER}s can also be seen by fine-tuning only utilizing the \textit{XLSR-53}\textsubscript{1-8} checkpoint. 
+With the exception of the Vietnamese test set, where it is up to 11\% worse, it performs only relatively worse than the custom pre-training on the multilingual in-house data, at \glsxtrshort{WER}s of 27.6\% and 31.9\%.
+This may be due to the absence of 8kHz data in the pre-training of \textit{XLSR-53}. 
+Nevertheless, adopting it in a fast and simple manner can result in considerable benefits.
+
+
+\subsection{\glsxtrshort{XLSR-53} as pre-training initialization}
+
+\input{tables/xlsr53_init_pretrain}
+
+As an alternative, we might use \textit{XLSR-53}\textsubscript{1-8} as an initialization for a customized pre-training, as shown in Table \ref{table: xlsr53_init_pretrain}. 
+On the in-house Vietnamese data, the \glsxtrshort{WER}s reduce from 31.4\% and 33.4\% (Table \ref{table:monoling_pretraining}) to 27.6\% and 29.5\% on dev and test set respectively, compared to 27.6\% and 31.9\% of direct finetuning with \textit{XLSR-53}\textsubscript{1-8}.
+This proves that continued pretraining using \textit{XLSR-53} model outperforms the pretraining using random initialization and the direct finetuning using \textit{XLSR-53}.
+
+A \textit{Large} model initialized with \glsxtrshort{XLSR-53} is also pre-trained on the monolingual in-house data before being reduced to a smaller size for fine-tuning.
+This performs better than pre-training with the smaller \textit{Large}\textsubscript{1-8} (26.2\% and 29.0\% compared to 27.6\% and 29.5\% on dev and test set respectively), but at the expense of increased pre-training's resource usage.
+Therefore, if the resource usage is neglected, the \textit{Large} model should be chosen for better \glsxtrshort{WER}.
+
+For the pretraining on the \glsxtrshort{YT} data using \glsxtrshort{XLSR-53} as initialization, the \glsxtrshort{WER}s reduce from 29.8\% and 35.2\% (Table \ref{table:monoling_pretraining}) to 24.3\% and 28.1\% on dev and test set respectively. 
+The benefits of integrating \textit{XLSR-53} into the multilingual data are substantially lower, with \glsxtrshort{WER}s being reduced from 26.8\% and 28.7\% (Table \ref{table:multiling_pretraining}) to 23.9\% and 27.4\%.
+On the domain-diverse dataset (the combination of monolingual in-house and \glsxtrshort{YT} data), the benefits of continued pretraining are also reduced, with \glsxtrshort{WER}s being reduced from 25.3\% and 27.2\% (Table \ref{table:monoling_pretraining}) to 24.5\% and 27.2\% on dev and test set respectively.
+This shows that the continued pretraining is beneficial for both the monolingual and the multilingual scenario. However, the continued pretraining on less diverse data benefits more from the diverse and multilingual data.
+
+\subsection{Comparison to supervised baselines}
+
+\input{tables/supervised_unsupervised_compare}
+
+As shown in Table \ref{table: supervised_unsupervised_compare}, we can see that fine-tuning using \glsxtrshort{Wav2vec 2.0} \textit{Large}\textsubscript{1-8}\xspace from scratch is worse when we compare with the findings from the supervised-only baseline (32.1\% and 36.6\% vs. 31.0\% and 35.1\% on dev and test set respectively).
+With monolingual pre-training on the identical data, there is still no apparent advantage (31.4\% and 33.4\%).
+When we increase the pretraining data to 5 times with a less diverse data (\glsxtrshort{YT} data), the performance also does not clearly outperform the supervised-only baseline (29.8\% and 35.2\%).
+This proves that the \glsxtrshort{Wav2vec 2.0} unsupervised pretraining does not always outperform the \glsxtrshort{Transformer} supervised-only approach, especially when the pretrained data is not diverse enough.
+
+However, we are able to significantly outperform the supervised baselines when applying continued pretraining.
+In comparison to the best supervised-only baseline, the best results for continued pretraining show a reduction of \glspl{WER} to 24.5 \% and 27.2\% on monolingual data and to 23.9\% and 27.4\% on multilingual data.
+Therefore, we can conclude that continued pretraining should be used to gain the most benefits in terms of accuracy.
