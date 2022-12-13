@@ -1,0 +1,24 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multicolumn{2}{|c|}{Pre-training}                                                           & Fine-tuning         & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+Data (hours)                                                          & Epochs               & Epochs              & Hykist dev & Hykist test       \\ 
+\hline
+None                                                                  & None                 & 33                  & 32.1       & 36.6              \\ 
+\hline
+\begin{tabular}[c]{@{}c@{}}Viet. in-house \\~(219h)\end{tabular}      & 100                  & \multirow{4}{*}{26} & 31.4       & 33.4              \\ 
+\cline{1-2}\cline{4-5}
+\begin{tabular}[c]{@{}c@{}}Aug. Viet. in-house \\(1168h)\end{tabular} & \multirow{3}{*}{300} &                     & 31.0       & 32.3              \\ 
+\cline{1-1}\cline{4-5}
+\begin{tabular}[c]{@{}c@{}}Viet. YT \\(1168h)\end{tabular}            &                      &                     & 29.8       & 35.2              \\ 
+\cline{1-1}\cline{4-5}
+\begin{tabular}[c]{@{}c@{}}Viet. in-house + YT \\(1168h)\end{tabular} &                      &                     & 25.3       & 27.2              \\
+\hline
+\end{tabular}
+\caption{\glspl{WER} {[}\%{]} for models pretrained on monolingual data. All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. All pre-trainings have been done with random initialization. Pre-training data "None" in the 3rd row means fine-tuning from scratch with \glsxtrshort{Wav2vec 2.0} \textit{Large}\textsubscript{1-8} architecture.}
+\label{table:monoling_pretraining}
+\end{table}

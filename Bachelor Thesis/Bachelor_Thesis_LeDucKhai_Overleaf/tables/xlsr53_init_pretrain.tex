@@ -1,0 +1,26 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multicolumn{3}{|c|}{Pre-training}                                                                                                           & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+Architecture                       & Data (hours)                                                                     & Epochs               & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{\textit{Large}\textsubscript{1-8}} & None                                                                             & None                 & 27.6       & 31.9              \\ 
+\cline{2-5}
+                                   & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house \\(219h)\end{tabular}} & 25                   & 27.6       & 29.5              \\ 
+\cline{1-1}\cline{3-5}
+\textit{Large}                     &                                                                                  & 100                  & 26.2       & 29.0              \\ 
+\hline
+\multirow{3}{*}{\textit{Large}\textsubscript{1-8}} & \begin{tabular}[c]{@{}c@{}}Viet. YT \\(1168h)\end{tabular}                       & \multirow{2}{*}{100} & 24.3       & 28.1              \\ 
+\cline{2-2}\cline{4-5}
+                                   & \begin{tabular}[c]{@{}c@{}}Viet. in-house + YT~\\(1168h)\end{tabular}            &                      & 24.5       & 27.2              \\ 
+\cline{2-5}
+                                   & \begin{tabular}[c]{@{}c@{}}Multilingual in-house \\(1168h)\end{tabular}          & 50                   & 23.9       & 27.4              \\
+\hline
+\end{tabular}
+\caption{\glspl{WER} {[}\%{]} for models using unsupervised pre-training with the public \textit{XLSR-53} model as initialization (3rd row is for direct finetuning and the rest are initialization for pretraining on specific data). All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. The 1st model is the direct finetuning on Vietnamese in-house data, and the remaining models use \textit{XLSR-53} as initialization for pretrainings (full model \textit{Large} or cut-off model  \textit{Large}\textsubscript{1-8}).}
+\label{table: xlsr53_init_pretrain}
+\end{table}

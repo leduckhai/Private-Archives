@@ -1,0 +1,16 @@
+\begin{table}[!h]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Architecture} & \multirow{2}{*}{Features} & \multicolumn{2}{c|}{Pretraining} & Fine-tuning & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-7}
+                              &                           & Data (hours) & Epochs            & Epochs      & dev  & test                    \\ 
+\hline
+\textit{Large}\textsubscript{1-8}             & GT                        & None         & None              & 33          & 36.8 & 38.4                    \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\glspl{WER} {[}\%{]} for models fine-tuning using \glsxtrfull{GT} feature. The setup is built the same to \glsxtrshort{CNN} feature.}
+\label{table:feature_compare}
+\end{table}

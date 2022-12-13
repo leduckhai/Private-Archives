@@ -1,0 +1,30 @@
+\begin{table}[!h]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|l|c|c|c|c|c|c|c|} 
+\hline
+Language                    & Dataset                 & Usage                                                     & \# Spks & Hours  & Domain                                                                       & \begin{tabular}[c]{@{}c@{}}In-domain \\match\end{tabular} & \begin{tabular}[c]{@{}c@{}}Diversity \\level\end{tabular}  \\ 
+\hline
+Arabic                      & In-house                & pretr.                                                    & 3379    & 786    & Tel., Conv.                                                                  & Medium                                                    & Medium                                                     \\ 
+\hline
+German                      & In-house                & pretr.                                                    & 1723    & 177    & Tel., Conv.                                                                  & Medium                                                    & Medium                                                     \\ 
+\hline
+\multirow{5}{*}{Vietnamese} & In-house                & \begin{tabular}[c]{@{}c@{}}pretr., \\finetu.\end{tabular} & 2240    & 219    & Tel., Conv.                                                                  & Medium                                                    & Medium                                                     \\ 
+\cline{2-8}
+                            & \multirow{3}{*}{HYKIST} & adapt                                                     & 1       & 1      & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}Tel., Conv.,\\Med.~\end{tabular}} & \multirow{3}{*}{High}                                     & \multirow{4}{*}{Low}                                       \\ 
+\cline{3-5}
+                            &                         & dev                                                       & 3       & 3      &                                                                              &                                                           &                                                            \\ 
+\cline{3-5}
+                            &                         & test                                                      & 2       & 2      &                                                                              &                                                           &                                                            \\ 
+\cline{2-7}
+                            & YouTube                 & pretr.                                                    & -       & 1.204  & Read books                                                                   & Low                                                       &                                                            \\ 
+\hline
+\multirow{2}{*}{Multi}      & In-house*               & pretr.                                                    & 7342    & 1.182  & Tel., Conv.                                                                  & Medium                                                    & \multirow{2}{*}{High}                                      \\ 
+\cline{2-7}
+                            & XLSR-53                 & pretr.                                                    & -       & 56.000 & Various                                                                      & Low                                                       &                                                            \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Data statistics for acoustic data. *The multilingual in-house training dataset is the combination of the Arabic, German and Vietnamese ones listed above. Domain: Telephone (Tel.), Conversational (Conv.), Medical (Med.).}
+\label{table:data_stats}
+\end{table}

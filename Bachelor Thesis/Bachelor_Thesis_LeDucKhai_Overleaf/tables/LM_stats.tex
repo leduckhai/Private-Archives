@@ -1,0 +1,17 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[!ht]
+\setlength{\tabcolsep}{0.9em}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\# words & vocab & \multicolumn{2}{c|}{dev} & \multicolumn{2}{c|}{test}  \\ 
+\hline
+in train & size  & OOV   & PPL              & OOV   & PPL                \\ 
+\hline
+500M     & 11k   & 0.1\% & 67               & 0.2\% & 69                 \\
+\hline
+\end{tabular}
+\caption{ 4-gram LM for Vietnamese.}
+\label{table:LM_stats}
+\end{table}

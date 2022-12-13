@@ -1,0 +1,18 @@
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=0.9\columnwidth,center}
+\begin{tabular}{|c|c|l|} 
+\hline
+\begin{tabular}[c]{@{}c@{}}\textbf{\textbf{Training }}\\\textbf{\textbf{size}}\end{tabular} & \textbf{\textbf{Illustration}} & \multicolumn{1}{c|}{\textbf{\textbf{Explanation}}}                                                                                                                                                                                                                                                               \\ 
+\hline
+\textcolor[rgb]{0.141,0.161,0.18}{Small}                                                    & \raisebox{-\totalheight}{\includegraphics[width=0.7\textwidth, height=60mm]{figures/transfer-learning-small-ltr.png}}                       & \begin{tabular}[c]{@{}l@{}}\textcolor[rgb]{0.141,0.161,0.18}{Freezes all layers, }\\\textcolor[rgb]{0.141,0.161,0.18}{trains weights }\\\textcolor[rgb]{0.141,0.161,0.18}{on softmax}\end{tabular}                                                                                                               \\ 
+\hline
+\textcolor[rgb]{0.141,0.161,0.18}{Medium}                                                   & \raisebox{-\totalheight}{\includegraphics[width=0.7\textwidth, height=60mm]{figures/transfer-learning-medium-ltr.png}}                       & \begin{tabular}[c]{@{}l@{}}\textcolor[rgb]{0.141,0.161,0.18}{Freezes most }\\\textcolor[rgb]{0.141,0.161,0.18}{layers, trains weights }\\\textcolor[rgb]{0.141,0.161,0.18}{on last layers and }\\\textcolor[rgb]{0.141,0.161,0.18}{softmax}\end{tabular}                                                         \\ 
+\hline
+\textcolor[rgb]{0.141,0.161,0.18}{Large}                                                    & \raisebox{-\totalheight}{\includegraphics[width=0.7\textwidth, height=60mm]{figures/transfer-learning-large-ltr.png}}                       & \begin{tabular}[c]{@{}l@{}}\textcolor[rgb]{0.141,0.161,0.18}{Trains weights on }\\\textcolor[rgb]{0.141,0.161,0.18}{layers and softmax }\\\textcolor[rgb]{0.141,0.161,0.18}{by initializing }\\\textcolor[rgb]{0.141,0.161,0.18}{weights on }\\\textcolor[rgb]{0.141,0.161,0.18}{pre-trained ones}\end{tabular}  \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Test}
+\label{table:transfer_learning_strategy}
+\end{table}

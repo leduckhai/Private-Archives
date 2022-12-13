@@ -1,0 +1,51 @@
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+Arch.                                                                      & Init                              & Pre-training data                                                                    & Recog. & Baseline      & +ICE           & +IF            \\ 
+\hline
+\multirow{12}{*}{\begin{tabular}[c]{@{}c@{}}\\\textit{Large}\textsubscript{1-8}\end{tabular}} & \multirow{3}{*}{\textit{XLSR-53}} & \multirow{3}{*}{None}                                                                & dev    & \textbf{14.8} & 15.8           & 15.4           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & test   & \textbf{32.5} & 33.9           & 33.6           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & vivos  & 30.3          & \textbf{30.0}  & \textbf{30.0}  \\ 
+\cline{2-7}
+                                                                           & \multirow{6}{*}{None}             & \multirow{3}{*}{In-house data Viet.(219h)}                                           & dev    & 16.4          & 16.1           & \textbf{15.8}  \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & test   & 35.6          & 34.8           & \textbf{34.5}  \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & vivos  & 31.3          & 30.4           & \textbf{29.6}  \\ 
+\cline{3-7}
+                                                                           &                                   & \multirow{3}{*}{None}                                                                & dev    & 20.8          & \textbf{18.6}  & 19.7           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & test   & 44.7          & \textbf{42.1}  & 43.1           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & vivos  & 34.9          & \textbf{33.1}  & 33.9           \\ 
+\cline{2-7}
+                                                                           & \multirow{3}{*}{\textit{XLSR-53}} & \multirow{6}{*}{\begin{tabular}[c]{@{}c@{}}In-house data Viet.\\(219h)\end{tabular}} & dev    & \textbf{11.5} & 12.3           & 13.0           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & test   & \textbf{29.4} & 29.8           & 29.8           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & vivos  & \textbf{27.2} & 27.7           & 27.6           \\ 
+\cline{1-2}\cline{4-7}
+\multirow{3}{*}{\textit{Base}}                                             & \multirow{6}{*}{None}             &                                                                                      & dev    & 16.6          & \textbf{15.4}~ & 15.9           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & test   & 35.4          & \textbf{34.2}  & 34.4           \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & vivos  & 30.9          & 31.3           & \textbf{30.5}  \\ 
+\cline{1-1}\cline{3-7}
+\multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}\\\textit{Large}\textsubscript{1-8}\end{tabular}}  &                                   & \multirow{3}{*}{Viet. YT(1168h)}                                                     & dev    & 16.4          & 15.6           & \textbf{14.5}  \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & test   & 34.4          & 32.2           & \textbf{30.9}  \\ 
+\cline{4-7}
+                                                                           &                                   &                                                                                      & vivos  & 28.7          & 27.6           & \textbf{26.9}  \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    Recognition \glspl{WER} at epoch 33 on read speech datasets. 
+    Experiment setups are the same to Table \ref{int_and_focal_WERs}. 
+    The recognition is done on CommonVoice dev/test sets and VIVOS test set.}
+\label{int_and_focal_WERs_CV_Vivos}
+\end{table}

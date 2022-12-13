@@ -1,0 +1,43 @@
+% \usepackage[normalem]{ulem}
+% \usepackage{multirow}
+
+
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|} 
+\hline
+Arch.                              & Init                              & Pre-training data                                                                    & Recog. & Baseline      & +ICE          & +IF           & +L2           \\ 
+\hline
+\multirow{8}{*}{\textit{Large}\textsubscript{1-8}} & \multirow{2}{*}{\textit{XLSR-53}}          & \multirow{2}{*}{None}                                                                & dev    & \textbf{27.9} & 28.4          & 28.0          & -             \\ 
+\cline{4-8}
+                                   &                                   &                                                                                      & test   & \textbf{32.3} & 33.3          & 32.8          & -             \\ 
+\cline{2-8}
+                                   & \multirow{4}{*}{None}             & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}In-house data Viet.\\(219h)\end{tabular}} & dev    & 30.4          & 29.1          & \textbf{28.6} & 28.8          \\ 
+\cline{4-8}
+                                   &                                   &                                                                                      & test   & 33.4          & 33.7          & \textbf{33.0} & \uline{32.9}  \\ 
+\cline{3-8}
+                                   &                                   & \multirow{2}{*}{None}                                                                & dev    & 35.6          & 33.8          & \textbf{33.0} & \uline{31.4}  \\ 
+\cline{4-8}
+                                   &                                   &                                                                                      & test   & 40.7          & \textbf{38.1} & 38.8          & \uline{36.4}  \\ 
+\cline{2-8}
+                                   & \multirow{2}{*}{\textit{XLSR-53}} & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}In-house data Viet.\\(219h)\end{tabular}} & dev    & 25.5          & 25.2          & \textbf{24.7} & \uline{24.3}  \\ 
+\cline{4-8}
+                                   &                                   &                                                                                      & test   & \textbf{29.1} & 29.2          & \textbf{29.1} & 29.3          \\ 
+\cline{1-2}\cline{4-8}
+\multirow{2}{*}{\textit{Base}}     & \multirow{4}{*}{None}             &                                                                                      & dev    & 30.2          & 29.7          & \textbf{29.0} & \uline{28.8}  \\ 
+\cline{4-8}
+                                   &                                   &                                                                                      & test   & 33.3          & 33.4          & \textbf{33.0} & \uline{32.3}  \\ 
+\cline{1-1}\cline{3-8}
+\multirow{2}{*}{\textit{Large}\textsubscript{1-8}} &                                   & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. YT\\(1168h)\end{tabular}}           & dev    & 29.8          & 27.3          & \textbf{26.1} & -             \\ 
+\cline{4-8}
+                                   &                                   &                                                                                      & test   & 35.2          & 31.5          & \textbf{30.8} & -             \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    Comparison of \glspl{WER} between architecture sizes, pretrained datasets and pretrained models, all are finetuned on our in-house spontaneous telephone speech dataset and recognized at epoch 33 on dev and test telephone HYKIST data. 
+    In this table, only 1 intermediate layer is applied in the middle \glsxtrshort{Transformer} block, e.g. position 4 for \textit{Large}\textsubscript{1-8} and 6 for \textit{Base} architecture. 
+    \textbf{Bold} numbers are used to compare between the baseline and 2 types of intermediate loss, while \underline{underline} numbers denote extra improvement of L2 regularization compared to \glsxtrshort{IF Loss}}
+\label{int_and_focal_WERs}
+\end{table}

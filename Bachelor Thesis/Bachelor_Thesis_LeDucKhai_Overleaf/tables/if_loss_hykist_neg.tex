@@ -1,0 +1,28 @@
+% \usepackage[normalem]{ulem}
+% \usepackage{multirow}
+
+
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=0.9\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Init.}            & \multirow{2}{*}{Pre-training data}                                                    & \multirow{2}{*}{With IF} & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{4-5}
+                                  &                                                                                       &                          & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{\textit{XLSR-53}} & \multirow{2}{*}{None}                                                                 & No                       & 27.9       & 32.3              \\ 
+\cline{3-5}
+                                  &                                                                                       & Yes                      & 28.0       & 32.8              \\ 
+\hline
+\multirow{2}{*}{None}             & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Multiling. in-house\\(1168h)\end{tabular}} & No                       & 26.8       & 28.7              \\ 
+\cline{3-5}
+                                  &                                                                                       & Yes                      & 25.2       & 29.3              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    Degradations of \glspl{WER} {[}\%{]} on HYKIST data between pretraining schedules when applying \glsxtrshort{IF Loss}. All models are finetuned until full convergence on Vietnamese in-house data. 
+    Only 1 intermediate layer is applied in the middle \glsxtrshort{Transformer} block, e.g. position 4 for \textit{Large}\textsubscript{1-8} and 6 for \textit{Base} architecture.}
+\label{table:if_loss_hykist_neg}
+\end{table}

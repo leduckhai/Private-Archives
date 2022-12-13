@@ -1,0 +1,25 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=0.6\columnwidth,center}
+\begin{tabular}{|l|c|c|} 
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{AM}} & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{2-3}
+\multicolumn{1}{|c|}{}                    & Hykist dev & Hykist test       \\ 
+\hline
+GMM                                       & 62.2       & 59.7              \\ 
+\hline
+BLSTM                                     & 32.9       & 38.4              \\ 
+\hline
+Transformer                               & 31.0       & 35.1              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\Glspl{WER} [\%] for supervised-only baselines on Vietnamese HYKIST data \cite{luescher2022:hykist}. Models are trained on the monolingual in-house data. The labels are context-dependent phonemes (\glsxtrshort{CART} state tying) with their size being 4501.}
+\label{table:supervised_baselines}
+\end{table}
+
+
+

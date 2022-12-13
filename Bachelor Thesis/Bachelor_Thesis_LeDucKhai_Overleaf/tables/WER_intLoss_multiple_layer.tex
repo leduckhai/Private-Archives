@@ -1,0 +1,42 @@
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=0.8\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multicolumn{6}{|c|}{Viet. in-house~\textit{Large}\textsubscript{1-8}}                                                                              \\ 
+\hline
+Layer & Hykist dev             & Hykist test            & CV dev                 & CV test                & Vivos                   \\ 
+\hline
+None  & 30.4                   & 33.4                   & 16.4                   & 35.6                   & 31.3                    \\ 
+\hline
+2     & 29.4                   & 34.0                   & \textbf{15.5}          & 35.7                   & 30.0                    \\ 
+\hline
+4     & \textbf{\textbf{28.6}} & \textbf{\textbf{33.0}} & 15.8                   & \textbf{\textbf{34.5}} & \textbf{\textbf{29.6}}  \\ 
+\hline
+6     & 29.1                   & \textbf{33.0}          & 16.6                   & 34.1                   & 29.9                    \\ 
+\hline
+2,6   & 29.1                   & 34.1                   & 15.6                   & 35.5                   & 30.7                    \\ 
+\hline
+3,5   & 29.1                   & 33.3                   & 16.4                   & 35.0                   & 30.1                    \\ 
+\hline
+\multicolumn{6}{|c|}{Viet. in-house~\textit{Base}}                                                                                  \\ 
+\hline
+None  & 30.2                   & 33.3                   & 16.6                   & 35.4                   & 30.9                    \\ 
+\hline
+3     & \textbf{28.7}          & 33.4                   & 17.0                   & 35.5                   & \textbf{30.1}           \\ 
+\hline
+6     & 29.0                   & 33.0                   & \textbf{\textbf{15.9}} & \textbf{\textbf{34.4}} & 30.5                    \\ 
+\hline
+9     & 29.5                   & \textbf{32.6}          & 14.8                   & 34.4                   & 30.5                    \\ 
+\hline
+4,8   & 29.3                   & 33.5                   & 16.2                   & 35.0                   & 30.3                    \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \glspl{WER} {[}\%{]} comparison of \glsxtrshort{IF Loss} on different layers between 2 architecture sizes: \textit{Base} and \textit{Large}\textsubscript{1-8}.
+    All models are finetuned until full convergence on Vietnamese in-house data and recognized on HYKIST, CommonVoice and VIVOS dataset.
+    Layer "None" means the baseline (no application of \glsxtrshort{IF Loss}).
+    }
+\label{WER_intLoss_multiple_layer}
+\end{table}

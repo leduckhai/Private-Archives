@@ -1,0 +1,36 @@
+% \usepackage[normalem]{ulem}
+% \usepackage{multirow}
+
+
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=0.5\columnwidth,center}
+\begin{tabular}{|c|c|c|cc|} 
+\hline
+\#Ft-Epoch          & \multicolumn{2}{c|}{Data}      & Baseline      & +IF                \\ 
+\hline
+\multirow{5}{*}{13} & \multirow{2}{*}{hykist} & dev  & 32.8          & \textbf{32.1}           \\ 
+\cline{3-5}
+                    &                         & test & 37.6          & \textbf{37.2}           \\ 
+\cline{2-5}
+                    & \multirow{2}{*}{cv}     & dev  & \textbf{17.0} & 17.5                    \\ 
+\cline{3-5}
+                    &                         & test & \textbf{39.5} & \textbf{39.5}           \\ 
+\cline{2-5}
+                    & \multicolumn{2}{c|}{vivos}     & 34.0          & \textbf{33.7}           \\ 
+\hline
+\multirow{5}{*}{33} & \multirow{2}{*}{hykist} & dev  & 32.8          & \textbf{\textbf{31.9}}  \\ 
+\cline{3-5}
+                    &                         & test & 37.6          & \textbf{\textbf{36.9}}  \\ 
+\cline{2-5}
+                    & \multirow{2}{*}{cv}     & dev  & \textbf{17.0} & 18.3                    \\ 
+\cline{3-5}
+                    &                         & test & \textbf{39.5} & 40.0                    \\ 
+\cline{2-5}
+                    & \multicolumn{2}{c|}{vivos}     & 34.0          & \textbf{33.9}           \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\glspl{WER} comparison of \glsxtrshort{IF Loss} over epochs of learning rate reset training. The recognition was done on HYKIST, CommonVoice and VIVOS dataset.}
+\label{Lr_reset_int_loss}
+\end{table}

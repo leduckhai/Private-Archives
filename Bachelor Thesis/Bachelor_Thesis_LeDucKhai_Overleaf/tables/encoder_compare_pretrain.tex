@@ -1,0 +1,26 @@
+\begin{table}[!h]
+\centering
+\begin{adjustbox}{width=0.9\columnwidth,center}
+\begin{tabular}{|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Architecture} & Pretraining                                                                              & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{2-4}
+                              & Data (hours)                                                                             & Hykist dev & Hykist test       \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{None}                                                                    & 35.8       & 39.9              \\ 
+\cline{1-1}\cline{3-4}
+\textit{Large}\textsubscript{1-8}             &                                                                                          & 35.0       & 40.7              \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house\\(219h)\end{tabular}}          & 30.2       & 33.3              \\ 
+\cline{1-1}\cline{3-4}
+\textit{Large}\textsubscript{1-8}             &                                                                                          & 31.5       & 33.4              \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Multilingual in-house~\\(1168h)\end{tabular}} & 26.2       & 28.8              \\ 
+\cline{1-1}\cline{3-4}
+\textit{Large}\textsubscript{1-8}             &                                                                                          & 26.8       & 28.7              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\glspl{WER} {[}\%{]} for architecture \textit{Base} and \textit{Large}\textsubscript{1-8} using different pretraining schedules: no pretraining, pretraining on in-house data and on multilingual data. All fine-tunings are done until full convergence on Vietnamese in-house data and the recognition is done on HYKIST.}
+\label{table:encoder_compare_pretrain}
+\end{table}

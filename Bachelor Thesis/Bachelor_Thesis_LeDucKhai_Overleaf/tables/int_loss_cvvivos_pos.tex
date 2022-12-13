@@ -1,0 +1,29 @@
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=0.7\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Pre-training data}                                              & \multirow{2}{*}{With ICE} & \multicolumn{3}{c|}{WER [\%]}  \\ 
+\cline{3-5}
+                                                                                &                           & CV dev & CV test & Vivos       \\ 
+\hline
+\multirow{2}{*}{None}                                                           & No                        & 20.8   & 44.7    & 34.9        \\ 
+\cline{2-5}
+                                                                                & Yes                       & 18.6   & 42.1    & 33.1        \\ 
+\hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. YT\\(1168h)\end{tabular}}      & No                        & 16.4   & 34.4    & 28.7        \\ 
+\cline{2-5}
+                                                                                & Yes                       & 15.6   & 32.2    & 27.6        \\ 
+\hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house\\(219h)\end{tabular}} & No                        & 16.4   & 35.6    & 31.3        \\ 
+\cline{2-5}
+                                                                                & Yes                       & 16.1   & 34.8    & 30.4        \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    Improvements of \glspl{WER} {[}\%{]} on CommonVoice and VIVOS between pretraining schedules when applying \glsxtrshort{ICE Loss}. All models are finetuned on Vietnamese in-house data. 
+    Only 1 intermediate layer is applied in the middle \glsxtrshort{Transformer} block, e.g. position 4 for \textit{Large}\textsubscript{1-8} and 6 for \textit{Base} architecture.
+    }
+\label{int_loss_cvvivos_pos}
+\end{table}

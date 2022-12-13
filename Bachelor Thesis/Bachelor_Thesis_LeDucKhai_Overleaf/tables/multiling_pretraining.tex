@@ -1,0 +1,20 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multicolumn{3}{|c|}{Pre-training}                                                                                       & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+Init                    & Data (hours)                                                            & Epochs               & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{random} & \begin{tabular}[c]{@{}c@{}}Viet. in-house + YT\\(1168h)\end{tabular}    & \multirow{2}{*}{300} & 25.3       & 27.2              \\ 
+\cline{2-2}\cline{4-5}
+                        & \begin{tabular}[c]{@{}c@{}}Multilingual in-house \\(1168h)\end{tabular} &                      & 26.8       & 28.7              \\ 
+\hline
+\textit{XLSR-53}\textsubscript{1-8}     & None                                                                    & None                 & 27.6       & 31.9              \\
+\hline
+\end{tabular}
+\caption{\glspl{WER} {[}\%{]} for models using unsupervised pretraining on multilingual data compared to pretraining on monolingual data. All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. The 2nd model is pretrained on our multilingual in-house dataset, and the 3rd uses \textit{XLSR-53}\textsubscript{1-8} to directly finetune on Vietnamese in-house data.}
+\label{table:multiling_pretraining}
+\end{table}

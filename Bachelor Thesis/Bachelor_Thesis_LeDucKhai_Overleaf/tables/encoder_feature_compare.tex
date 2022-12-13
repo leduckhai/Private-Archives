@@ -1,0 +1,46 @@
+\begin{table}[!h]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{3}{*}{Architecture} & \multirow{3}{*}{Features} & \multicolumn{2}{c|}{Pretraining}                                                                                               & Fine-tuning             & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-7}
+                              &                           & \multirow{2}{*}{Data (hours)}                                                                        & \multirow{2}{*}{Epochs} & \multirow{2}{*}{Epochs} & \multicolumn{2}{c|}{Viet.}     \\ 
+\cline{6-7}
+                              &                           &                                                                                                      &                         &                         & dev  & test                    \\ 
+\hline
+\textit{Base}                         & \multirow{2}{*}{Raw WF}   & \multirow{3}{*}{None}                                                                                & \multirow{3}{*}{None}   & \multirow{7}{*}{33}     & 35.8 & 39.9                    \\ 
+\cline{1-1}\cline{6-7}
+\textit{Large}\textsubscript{1-8}                        &                           &                                                                                                      &                         &                         & 35.0 & 40.7                    \\ 
+\cline{1-2}\cline{6-7}
+\textit{Large}\textsubscript{1-8}                        & GT                        &                                                                                                      &                         &                         & 36.8 & 38.4                    \\ 
+\cline{1-4}\cline{6-7}
+\textit{Base}                         & \multirow{16}{*}{Raw WF}  & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Respective~\\in-house \\dataViet. \\(0.01h)\end{tabular}} & \multirow{4}{*}{1}      &                         & 30.6 & 35.2                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{6-7}
+\textit{Large}\textsubscript{1-8}                        &                           &                                                                                                      &                         &                         & 31.8 & 35.7                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{3-7}
+\textit{Base}                         &                           & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Respective~\\in-house \\dataViet. \\(219h)\end{tabular}}  & \multirow{12}{*}{300}   & \multirow{12}{*}{26}    & 30.2 & 33.3                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{6-7}
+\textit{Large}\textsubscript{1-8}                        &                           &                                                                                                      &                         &                         & 31.5 & 33.4                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{3-3}\cline{6-7}
+\textit{Base}                         &                           & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Multilingual \\in-house~\\(1168h)\end{tabular}}           &                         &                         & 26.2 & 28.8                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{6-7}
+\textit{Large}\textsubscript{1-8}                        &                           &                                                                                                      &                         &                         & 26.8 & 28.7                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{3-3}\cline{6-7}
+\textit{Base}                         &                           & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Augmented~\\in-house \\dataViet. \\(1168h)\end{tabular}}  &                         &                         & 31.6 & 32.2                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\ 
+\cline{1-1}\cline{6-7}
+\textit{Large}\textsubscript{1-8}                        &                           &                                                                                                      &                         &                         & 31.0 & 32.3                    \\
+                              &                           &                                                                                                      &                         &                         &      &                         \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\glspl{WER} {[}\%{]} for models using unsupervised pre-training and fine-tuning from scratch. All fine-tunings use the \textit{Large}\textsubscript{1-8} or \textit{Base} architecture and are trained until full convergence on the in-house data of the respective language. Pre-trainings have been done with random initialization. Pre-training "None" means fine-tuning from scratch. Features used are Raw Waveform (Raw WF) or Gammatone (GT) \cite{schlueter:icassp07}.}
+\label{table:encoder_feature_compare}
+\end{table}

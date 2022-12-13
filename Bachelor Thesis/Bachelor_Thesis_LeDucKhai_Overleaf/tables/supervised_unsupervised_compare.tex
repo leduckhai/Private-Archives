@@ -1,0 +1,26 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{AM}          & \multirow{2}{*}{Init}                & Pre-training                                                            & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-5}
+                             &                                      & Data (hours)                                                            & Hykist dev & Hykist test       \\ 
+\hline
+Transformer                  & \multirow{4}{*}{random}              & \multirow{2}{*}{None}                                                   & 31.0       & 35.1              \\ 
+\cline{1-1}\cline{4-5}
+\multirow{5}{*}{wav2vec 2.0} &                                      &                                                                         & 32.1       & 36.6              \\ 
+\cline{3-5}
+                             &                                      & \begin{tabular}[c]{@{}c@{}}Viet. in-house \\~(219h)\end{tabular}        & 31.4       & 33.4              \\ 
+\cline{3-5}
+                             &                                      & \begin{tabular}[c]{@{}c@{}}Viet. YT \\(1168h)\end{tabular}              & 29.8       & 35.2              \\ 
+\cline{2-5}
+                             & \multirow{2}{*}{\textit{XLSR-53}\textsubscript{1-8}} & \begin{tabular}[c]{@{}c@{}}Viet. in-house + YT \\(1168h)\end{tabular}   & 24.5       & 27.2              \\ 
+\cline{3-5}
+                             &                                      & \begin{tabular}[c]{@{}c@{}}Multilingual in-house~\\(1168h)\end{tabular} & 23.9       & 27.4              \\
+\hline
+\end{tabular}
+\caption{\glspl{WER} {[}\%{]} for models using unsupervised pre-training and supervised-only training. All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. The 1st model is the supervised-only training using Transformer. The 2nd and 3rd models are pretrained on specific data using random initializaton. The 4th and 5th models are continued pretraining methods (using \textit{XLSR-53}\textsubscript{1-8} as initialization).}
+\label{table: supervised_unsupervised_compare}
+\end{table}

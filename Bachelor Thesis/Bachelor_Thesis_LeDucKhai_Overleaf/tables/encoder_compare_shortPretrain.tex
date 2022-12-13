@@ -1,0 +1,22 @@
+\begin{table}[!h]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Architecture} & \multirow{2}{*}{Init. scheme}                                                     & \multicolumn{2}{c|}{Pretraining}                                                                          & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-6}
+                              &                                                                                   & Data (hours)                                                                      & Epochs                & Hykist dev & Hykist test       \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Kaiming Init.\\(Fairseq)\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house~\\(0.01h)\end{tabular}} & \multirow{2}{*}{1}    & 30.6       & 35.2              \\ 
+\cline{1-1}\cline{5-6}
+\textit{Large}\textsubscript{1-8}             &                                                                                   &                                                                                   &                       & 31.8       & 35.7              \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Glorot Init.\\(RETURNN)\end{tabular}}  & \multirow{2}{*}{None}                                                             & \multirow{2}{*}{None} & 35.8       & 39.9              \\ 
+\cline{1-1}\cline{5-6}
+\textit{Large}\textsubscript{1-8}             &                                                                                   &                                                                                   &                       & 35.0       & 40.7              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\glspl{WER} {[}\%{]} for architecture \textit{Base} and \textit{Large}\textsubscript{1-8} using 2 different initialization schemes: Kaiming Initialization (in Fairseq framework \cite{facebook2019fairseq}) and Glorot Initialization (in RETURNN framework \cite{doetsch2016returnn}). All fine-tunings are done until full convergence on Vietnamese in-house data and the recognition is done on HYKIST.}
+\label{table:encoder_compare_shortPretrain}
+\end{table}

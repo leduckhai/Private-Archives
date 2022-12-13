@@ -1,0 +1,18 @@
+\begin{table}[!h]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Architecture} & \multirow{2}{*}{Features} & \multicolumn{2}{c|}{Pretraining}              & Fine-tuning         & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-7}
+                              &                           & Data (hours)          & Epochs                & Epochs              & dev  & test                    \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{Raw WF}   & \multirow{2}{*}{None} & \multirow{2}{*}{None} & \multirow{2}{*}{33} & 35.8 & 39.9                    \\ 
+\cline{1-1}\cline{6-7}
+\textit{Large}\textsubscript{1-8}             &                           &                       &                       &                     & 35.0 & 40.7                    \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\glspl{WER} {[}\%{]} for models fine-tuning from scratch. All fine-tunings use the \textit{Large}\textsubscript{1-8} or \textit{Base} architecture and are trained until full convergence on the Vietnamese in-house data. Pre-training "None" means fine-tuning from scratch. Features used are Raw Waveform (Raw WF).}
+\label{table:encoder_compare_RawWF}
+\end{table}

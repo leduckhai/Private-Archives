@@ -1,0 +1,27 @@
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multicolumn{3}{|c|}{Off reg.}          & \multirow{6}{*}{\begin{tabular}[c]{@{}c@{}}Continue fine-tuning\\\longrightarrow\\\end{tabular}} & \multicolumn{3}{c|}{On reg.}             \\ 
+\cline{1-3}\cline{5-7}
+~Epochs & Hykist dev    & Hykist test   &                                                                                       & ~Epochs & Hykist dev    & Hykist test    \\ 
+\cline{1-3}\cline{5-7}
+0       & -             & -             &                                                                                       & 33      & 33.0          & 38.8           \\ 
+\cline{1-3}\cline{5-7}
+3       & 45.6          & 48.6          &                                                                                       & 33      & \textbf{32.5} & \textbf{38.4}  \\ 
+\cline{1-3}\cline{5-7}
+7       & 43.4 & 45.9 &                                                                                       & 33      & 34.3          & 39.5           \\ 
+\cline{1-3}\cline{5-7}
+10      & 44.6          & 47.1          &                                                                                       & 33      & 34.1          & 39.5           \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \glspl{WER} {[}\%{]} comparison of On-off Regularization technique over epochs for raw waveform from scratch training.
+    "Off Regularization" stage means training without regularization techniques like Dropout, SpecAugment and \glsxtrshort{IF Loss}.
+    After training for some first epochs, the learning rate is reset and the model is preloaded in the "On Regularization" stage (all regularization techniques are turned on).
+    All models are then continued being finetuned until full convergence on Vietnamese in-house data and recognized on HYKIST dataset.
+    The 3rd row (0 epoch for "Off Regularization") is the baseline.}
+\label{on_off_regularization}
+\end{table}

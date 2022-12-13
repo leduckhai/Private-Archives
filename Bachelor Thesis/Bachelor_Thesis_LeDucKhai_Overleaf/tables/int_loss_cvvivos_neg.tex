@@ -1,0 +1,40 @@
+\begin{table}[!ht]
+\centering
+\begin{adjustbox}{width=\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Arch.}             & \multirow{2}{*}{Init.}            & \multirow{2}{*}{Pre-training data}                                                    & \multirow{2}{*}{With ICE} & \multicolumn{3}{c|}{WER [\%]}  \\ 
+\cline{5-7}
+                                   &                                   &                                                                                       &                           & CV dev & CV test & Vivos       \\ 
+\hline
+\multirow{4}{*}{\textit{Large}\textsubscript{1-8}} & \multirow{4}{*}{\textit{XLSR-53}} & \multirow{2}{*}{None}                                                                 & No                        & 14.8   & 32.5    & 30.3        \\ 
+\cline{4-7}
+                                   &                                   &                                                                                       & Yes                       & 15.8   & 33.9    & 30.0        \\ 
+\cline{3-7}
+                                   &                                   & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house\\(219h)\end{tabular}}       & No                        & 11.5   & 29.4    & 27.2        \\ 
+\cline{4-7}
+                                   &                                   &                                                                                       & Yes                       & 12.3   & 29.8    & 27.7        \\ 
+\cline{1-2}\cline{4-7}
+\multirow{2}{*}{\textit{Base}}     & \multirow{6}{*}{None}             &                                                                                       & No                        & 16.6   & 35.4    & 30.9        \\ 
+\cline{4-7}
+                                   &                                   &                                                                                       & Yes                       & 15.4   & 34.2    & 31.3        \\ 
+\cline{1-1}\cline{3-7}
+\multirow{6}{*}{\textit{Large}\textsubscript{1-8}} &                                   & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Multiling. in-house\\(1168h)\end{tabular}} & No                        & 15.2   & 29.7    & 29.5        \\ 
+\cline{4-7}
+                                   &                                   &                                                                                       & Yes                       & 14.8   & 30.5    & 28.8        \\ 
+\cline{3-7}
+                                   &                                   & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house + YT\\(1168h)\end{tabular}} & No                        & 12.9   & 26.5    & 21.0        \\ 
+\cline{4-7}
+                                   &                                   &                                                                                       & Yes                       & 13.6   & 28.2    & 21.9        \\ 
+\cline{2-7}
+                                   & \multirow{2}{*}{\textit{XLSR-53}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. YT\\(1168h)\end{tabular}}            & No                        & 11.8   & 28.4    & 25.6        \\ 
+\cline{4-7}
+                                   &                                   &                                                                                       & Yes                       & 12.3   & 28.3    & 25.0        \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    Degradations of \glspl{WER} {[}\%{]} on CommonVoice and VIVOS between pretraining schedules when applying \glsxtrshort{ICE Loss}. All models are finetuned on Vietnamese in-house data. 
+    Only 1 intermediate layer is applied in the middle \glsxtrshort{Transformer} block, e.g. position 4 for \textit{Large}\textsubscript{1-8} and 6 for \textit{Base} architecture.}
+\label{int_loss_cvvivos_neg}
+\end{table}

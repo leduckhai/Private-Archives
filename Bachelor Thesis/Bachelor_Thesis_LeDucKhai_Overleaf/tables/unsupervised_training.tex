@@ -1,0 +1,36 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multicolumn{4}{|c|}{Pre-training}                                                                                                                                                   & Fine-tuning             & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+\multirow{2}{*}{Architecture} & \multirow{2}{*}{Init}   & \multirow{2}{*}{Data (hours)}                                                                    & \multirow{2}{*}{Epochs} & \multirow{2}{*}{Epochs} & \multicolumn{2}{c|}{Viet.}     \\ 
+\cline{6-7}
+                              &                         &                                                                                                  &                         &                         & dev  & test                    \\ 
+\hline
+\multirow{7}{*}{\textit{Large}\textsubscript{1-8}\xspace}          & \multirow{5}{*}{random} & None                                                                                             & None                    & 33                      & 32.1 & 36.6                    \\ 
+\cline{3-7}
+                              &                         & \begin{tabular}[c]{@{}c@{}}Respective \\in-house data\\ Viet. (219h)\end{tabular}                & 100                     & \multirow{9}{*}{26}     & 31.4 & 33.4                    \\ 
+\cline{3-4}\cline{6-7}
+                              &                         & \begin{tabular}[c]{@{}c@{}}Viet. YT \\(1168h)\end{tabular}                                       & \multirow{3}{*}{300}    &                         & 29.8 & 35.2                    \\ 
+\cline{3-3}\cline{6-7}
+                              &                         & \begin{tabular}[c]{@{}c@{}}Viet. in-house + YT \\(1168h)\end{tabular}                            &                         &                         & 25.3 & 27.2                    \\ 
+\cline{3-3}\cline{6-7}
+                              &                         & \begin{tabular}[c]{@{}c@{}}Multilingual in-house \\(1168h)\end{tabular}                          &                         &                         & 26.8 & 28.7                    \\ 
+\cline{2-4}\cline{6-7}
+                              & \multirow{2}{*}{\textit{XLSR-53}\textsubscript{1-8}\xspace}    & None                                                                                             & None                    &                         & 27.6 & 31.9                    \\ 
+\cline{3-4}\cline{6-7}
+                              &                         & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Respective in-house \\data Viet. (219h)\end{tabular}} & 25                      &                         & 27.6 & 29.5                    \\ 
+\cline{1-2}\cline{4-4}\cline{6-7}
+\textit{Large}\xspace                           & \textit{XLSR-53}\xspace                     &                                                                                                  & 100                     &                         & 26.2 & 29.0                    \\ 
+\cline{1-4}\cline{6-7}
+\multirow{2}{*}{\textit{Large}\textsubscript{1-8}\xspace}          & \multirow{2}{*}{\textit{XLSR-53}\textsubscript{1-8}\xspace}    & \begin{tabular}[c]{@{}c@{}}Viet. YT \\(1168h)\end{tabular}                                       & 100                     &                         & 24.3 & 28.1                    \\ 
+\cline{3-4}\cline{6-7}
+                              &                         & \begin{tabular}[c]{@{}c@{}}Multilingual in-house \\(1168h)\end{tabular}                          & 50                      &                         & 23.9 & 27.4                    \\
+\hline
+\end{tabular}
+\caption{\glspl{WER} {[}\%{]} for models using unsupervised pre-training. All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on the in-house data of the respective language. Pre-trainings have been done with random initialization or using the public \textit{XLSR-53}  checkpoint as initialization. Pre-training "None" means fine-tuning from scratch.}
+\label{table:unsupervised_training}
+\end{table}
