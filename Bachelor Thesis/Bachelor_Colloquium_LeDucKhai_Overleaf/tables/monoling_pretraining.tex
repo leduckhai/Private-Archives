@@ -1,0 +1,33 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multicolumn{3}{|c|}{Pre-training}                                           & Fine-tuning         & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+Data                          & ~Hours                & Epochs               & Epochs              & Hykist dev & Hykist test       \\ 
+\hline
+None                          & -                     & None                 & \multirow{2}{*}{33} & 32.1       & 36.6              \\ 
+\cline{1-3}\cline{5-6}
+Viet. in-house (sup. pret.)   & \multirow{2}{*}{219}  & 33                   &                     & 31.9       & 36.9              \\ 
+\cline{1-1}\cline{3-6}
+Viet. in-house (unsup. pret.) &                       & 100                  & \multirow{4}{*}{26} & 31.4       & 33.4              \\ 
+\cline{1-3}\cline{5-6}
+Aug. Viet. in-house           & \multirow{3}{*}{1168} & \multirow{3}{*}{300} &                     & 31.0       & 32.3              \\ 
+\cline{1-1}\cline{5-6}
+Viet. YT                      &                       &                      &                     & 29.8       & 35.2              \\ 
+\cline{1-1}\cline{5-6}
+Viet. in-house + YT           &                       &                      &                     & 25.3       & 27.2              \\
+\hline
+\end{tabular}
+\caption{\center{All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. All pre-trainings have been done with \textbf{random initialization}. Pre-training data "None" in the 3rd row means fine-tuning from scratch with wav2vec 2.0 \textit{Large}\textsubscript{1-8} architecture. 
+In the experiment "supervised pretraining" in 4th row, we mimic the learning rate curve of the experiment "unsupervised pretraining" in 5th row.
+The rest pretraining schedules are unsupervised.
+The chosen number of pretraining epochs is the best checkpoint.}}
+\label{table:monoling_pretraining}
+%\TODO{add info: how much hours of data for fine tuning. in caption should suffice}
+%\TODO{split | Data (hours) | $/rightarrow$ | Data | Hours |. I think that would make the table better readable}
+%\TODO{move HYKIST label to WER or into a separate row??? might save a bit space in the width?}
+\end{table}

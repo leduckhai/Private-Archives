@@ -1,0 +1,78 @@
+\section{Introduction}
+
+\begin{frame}{HYKIST project}
+\begin{itemize}
+    \item Doctor speaks German, patient speaks Arabic or Vietnamese. 
+    Interpreter speaks German and Arabic, or German and  Vietnamese
+    \item  Goal: is to use \textbf{Automatic Speech Recognition} (ASR) and \textbf{Machine Translation} (MT) to assist interpreters \textrightarrow \, minimize time to look up medical terms, or interpreters' mistakes.
+
+\end{itemize}
+%\TODO{very long sentences on the slide $\rightarrow$ shorter or use highlighting. see for example above what I added. I would do this for all slides where you have text blocks}
+\end{frame}
+
+% Current problems
+\begin{frame}{Current problems}
+
+\begin{itemize}
+    \item Lack of training data: 6h (HYKIST) and 219h  (in-house data) 
+    \item Available Vietnamese datasets and pretrained models (XLSR-53) are sampled at 16 kHz, while ours at 8kHz
+    \item Domain mismatch: General telephone conversations (in-house data) vs. medical-focused conversations (HYKIST)
+    \item Accented speech: Local accents in in-house data vs foreign-born accents in HYKIST
+    \item Conversational speech: natural flow of speech, stuttering, emotional speakers...
+    \item Linguistic aspect of Vietnamese medical terms: Vietnamese language is monosyllabic (having only one syllable per word), while medical terms are loan words (polysyllabic but with Vietnamese pronunciation) 
+    %\TODO{what do you mean by loan words? compound words?}
+\end{itemize}
+
+\end{frame}
+
+% Research questions
+\begin{frame}{Research questions}
+
+\begin{itemize}
+    \item Roughly 100M speakers but no work has deeply investigated unsupervised pretraining for Vietnamese yet. 
+    \item No work has applied unsupervised pretraining to difficult low-resource medical tasks.
+    \item No work has investigated the use of unsupervised pretraining methods for telephone speech directly on the 8kHz signal without resampling.
+    \item The analysis of regularization for a medical ASR system has never been presented.
+\end{itemize}
+
+\end{frame}
+
+% Related work
+\begin{frame}{Related work}
+
+\begin{itemize}
+    \item \textbf{RWTH ASR Systems for LibriSpeech: Hybrid vs Attention} \cite{RASR-hybrid_vs_attention}
+        \begin{itemize}
+            \item Hybrid ASR setup achieving SOTA on Librispeech dataset
+        \end{itemize}
+        
+    \item \textbf{wav2vec 2.0: A framework for self-supervised learning of speech representations} \cite{facebookwav2vec2}
+        \begin{itemize}
+            \item The self-supervised learning framework demonstrating a good ASR system with limited amounts of labeled data
+        \end{itemize}
+        
+    \item \textbf{Unsupervised cross-lingual representation learning for speech recognition} \cite{XLSR}
+        \begin{itemize}
+            \item Release a large multilingual model \textit{XLSR-53} 
+            \item Multilingual pretraining outperforms monolingual pretraining
+        \end{itemize}
+
+    \item \textbf{Robust wav2vec 2.0: Analyzing domain shift in self-supervised pre-training} \cite{robust_wav2vec2}
+        \begin{itemize}
+            \item Pretraining on multiple domains to analyze the effect on target language
+        \end{itemize}
+    
+    \item \textbf{Wav2vec-aug: Improved self-supervised training with limited data} \cite{facebook2022wav2vecaug}
+        \begin{itemize}
+            \item Use data augmentation for pretrained data to boost ASR accuracy
+        \end{itemize}
+    
+    \item \textbf{Deja-vu: Double feature presentation and iterated loss in deep transformer networks} \cite{facebook2020dejavu}
+        \begin{itemize}
+            \item Propose the intermediate loss to boost accuracy
+        \end{itemize} 
+    
+\end{itemize}
+%\TODO{please check the file example-related-work.png in the overleaf for an example}
+
+\end{frame}

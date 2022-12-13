@@ -1,0 +1,33 @@
+\section{Experimental results}
+
+% Supervised baselines and Monolingual pretraining
+
+\begin{frame}{Supervised baselines}
+    \input{tables/supervised_baselines}
+\end{frame}
+
+\begin{frame}{Monolingual pretraining}
+\input{tables/monoling_pretraining}
+\end{frame}    
+
+\begin{frame}{Monolingual pretraining}
+\begin{itemize}
+    \item WERs of from scratch (32.1\% and 36.6\%) and in-house supervised pretraining (31.9\% and 36.9\%) reduce to (31.4\% and 33.4\%) of in-house pretraining 
+    \\ \textrightarrow \, 
+    On \textbf{wav2vec 2.0} architecture, the unsupervised pretraining helps 
+    %\TODO{we don't have a control experiment where we trained longer thatn 33 epochs without pre-training, right?}
+    
+    \item WERs reduce from 31.4\% and 33.4\% to 31.0\% and 32.3\% 
+    \\ \textrightarrow \,
+    Data augmentation for pretraining is helpful
+    
+    \item WERs of Youtube data (29.8\% and 35.2\%) vs. in-house data (31.4\% and 33.4\%) 
+    \\ \textrightarrow \,
+    Having more data is not always helpful, if the domain mismatch is larger and the data has less speakers
+    
+    \item WERs by 25.3\% and 27.2\% when combining the in-house and YT data (the best result using solely monolingual data)
+    \\ \textrightarrow \,
+    Diversity of domains and speakers is necessary
+\end{itemize}
+%\TODO{these points need to be discussed with the table in view. so you need to say these things when you are showing the table, and then you can give a summary on the following slide}
+\end{frame}

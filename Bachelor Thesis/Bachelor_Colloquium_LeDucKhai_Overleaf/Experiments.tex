@@ -1,0 +1,41 @@
+\section{Experiments}
+
+\begin{frame}{Training data}
+\begin{itemize}
+    \item Acoustic training data: %\TODO{Acoustic training data:}
+\end{itemize}
+\input{tables/data_stats}
+
+\end{frame}
+
+\begin{frame}{Training data}
+\begin{itemize}
+    \item Data for the large out-of-domain recognition: Read speech datasets resampled from 16kHz to 8kHz: 
+    \begin{itemize}
+        \item CommonVoice Vietnamese (17h of noisy recordings) \cite{ardila2020commonvoice}
+        \item VIVOS (15h of clean recordings) \cite{vivos_dataset}
+    \end{itemize}
+    \item Lexicon and language model:
+\end{itemize}
+\input{tables/LM_stats} 
+\end{frame}
+
+\begin{frame}{Acoustic model}
+\begin{itemize}
+    \item Supervised-only models: GMM, BLSTM (25M parameters), Transformer (90M)
+    
+    \item Models using unsupervised pretraining (317M by full architecture \textit{Large}, 115M parameters by cut-off \textit{Large}\textsubscript{1-8}\xspace \, and 95M by \textit{Base} architecture): 
+    \begin{itemize}
+        \item XLSR-53
+        \item Models pretrained from scratch with custom data
+        \item Continued pretraining with XLSR-53 as initialization
+    \end{itemize}
+    
+    \item Regularization: 
+    \begin{itemize}
+        \item Unsupervised pretraining: 
+        speed perturbation \cite{speed_perturbation}, random pitch perturbation \cite{pitch_perturbation}, reverberation perturbation \cite{reverb_perturbation}
+        \item Finetuning: SpecAugment \cite{park2019specaugment}, Intermediate Cross-entropy Loss (ICE Loss), Intermediate Focal Loss (IF Loss), L2 Regularization \cite{L2_regularization}, On-off Regularization
+    \end{itemize}
+\end{itemize}
+\end{frame}

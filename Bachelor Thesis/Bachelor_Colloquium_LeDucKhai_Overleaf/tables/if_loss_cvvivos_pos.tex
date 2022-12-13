@@ -1,0 +1,33 @@
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{adjustbox}{width=0.8\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Arch.}             & \multicolumn{2}{c|}{Pre-training}                       & \multirow{2}{*}{With IF} & \multicolumn{3}{c|}{WER [\%]}  \\ 
+\cline{2-3}\cline{5-7}
+                                   & Data                            & Hours                 &                          & CV dev & CV test & Vivos       \\ 
+\hline
+\multirow{4}{*}{\textit{Large}\textsubscript{1-8}} & \multirow{2}{*}{Viet. in-house} & \multirow{2}{*}{219}  & No                       & 16.4   & 35.6    & 31.3        \\ 
+\cline{4-7}
+                                   &                                 &                       & Yes                      & 15.8   & 34.5    & 29.6        \\ 
+\cline{2-7}
+                                   & \multirow{2}{*}{None}           & \multirow{2}{*}{-}    & No                       & 20.8   & 44.7    & 34.9        \\ 
+\cline{4-7}
+                                   &                                 &                       & Yes                      & 19.7   & 43.1    & 33.9        \\ 
+\hline
+\multirow{2}{*}{\textit{Base}}     & \multirow{2}{*}{Viet. in-house} & \multirow{2}{*}{219}  & No                       & 16.6   & 35.4    & 30.9        \\ 
+\cline{4-7}
+                                   &                                 &                       & Yes                      & 15.9   & 34.4    & 30.5        \\ 
+\hline
+\multirow{2}{*}{\textit{Large}\textsubscript{1-8}} & \multirow{2}{*}{Viet. YT}       & \multirow{2}{*}{1168} & No                       & 16.4   & 34.4    & 28.7        \\ 
+\cline{4-7}
+                                   &                                 &                       & Yes                      & 14.5   & 30.9    & 26.9        \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \center{Improvements of WERs on CommonVoice and VIVOS between pretraining schedules when applying IF Loss.
+    All models are finetuned until full convergence on Vietnamese in-house data.}}
+\label{table:if_loss_cvvivos_pos}
+\end{table}

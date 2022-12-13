@@ -1,0 +1,24 @@
+\begin{frame}{Encoder comparison}
+    \input{tables/encoder_compare_pretrain}
+\begin{itemize}
+    \item WERs between \textit{Base} and \textit{Large}\textsubscript{1-8} fluctuate
+    \\ \textrightarrow \,
+    %\TODO{No! You cannot make this statement! This is not even the same task. Please show me where you saw this statement!}
+    We recommend the use of \textit{Base} (97M parameters) in order to keep the performance competitive to \textit{Large}\textsubscript{1-8} (118M) while reducing the number of trainable parameters.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Initialization comparison}
+    \input{tables/encoder_compare_shortPretrain}
+    
+\begin{itemize}
+    \item For super short pretraining (1 epoch pretraining on only 0.01h of data), the results outperform those of raw waveform from scratch for both \textit{Base} and \textit{Large}\textsubscript{1-8} architecture
+    \\ \textrightarrow \,
+    In our experiments Kaiming Initialization shows better performance but the small differences in pretraining might lead to a less clear comparison.
+    %\TODO{this is a very general statement. Which you want to prove with one experiment on one dataset which already has problems since the pre-training is performed differently $\rightarrow$ In our experiments Kaiming Initialization showed better performance but the differences in pre-training lead to a less clear comparison. }
+\end{itemize}
+
+%\TODO{please drop Fairseq and RETURNN specifier}
+%\TODO{do you have Kaiming Init in RETURNN framework? so completely without pre-training?}
+\end{frame}

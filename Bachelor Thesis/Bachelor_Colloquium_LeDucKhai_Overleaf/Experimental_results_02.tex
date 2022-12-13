@@ -1,0 +1,17 @@
+\begin{frame}{Multilingual pretraining}
+    \input{tables/multiling_pretraining}
+\end{frame}
+
+\begin{frame}{Multilingual pretraining}
+\begin{itemize}
+    \item WERs of multilingual (26.8\% and 28.7\%) vs. monolingual combination (25.3\% and 27.2\%) 
+    \\ \textrightarrow \, 
+    Monolingual data with multiple domains outperforms multilingual data with high domain-match and speaker diversity.
+    %We reject \cite{xlsr53}'s conclusion where multilingual pretraining is proved to outperform monolingual pretraining. \TODO{too strong! you don't have that many experiments. please talk to Julian to see what he has to say about this.}
+        
+    \item WERs by 27.6\% and 31.9\% when directly finetuning with \textit{XLSR-53} 
+    \\ \textrightarrow \,
+    May be due to the absence of 8kHz data in the pretraining of \textit{XLSR-53}
+    %\TODO{why are you showing this experiment here? this is not clear to me. this is basically a supervised model or not?!}
+\end{itemize}
+\end{frame}

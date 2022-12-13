@@ -1,0 +1,181 @@
+% This file provides an example Beamer presentation using the RWTH theme
+% showcasing some of the more common options, similar to the Powerpoint version
+% 12.11.2014: Revision 1 (Harold Bruintjes, Tim Lange)
+% 23.10.2015: Edit by Kai Frantzen
+
+% For RWTH, beamer should be loaded with class option t (top)
+\documentclass[t]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{adjustbox} 
+ 
+% German style date formatting (footer)
+\usepackage[ddmmyyyy]{datetime}
+\renewcommand{\dateseparator}{.}
+
+% Format the captions used for figures etc.
+\usepackage[compatibility=false]{caption}
+\captionsetup{singlelinecheck=off,justification=raggedleft,labelformat=empty,labelsep=none}
+
+% regular 4:3 theme for i6 internal usage
+\usetheme{rwth}
+% uncomment if you want to use 16:9 format
+% \usetheme[wide]{rwth}
+
+\graphicspath{{figures/}}
+
+% https://tex.stackexchange.com/questions/426088/texlive-pretest-2018-beamer-and-subfig-collide
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+% https://tex.stackexchange.com/questions/83440/inputenc-error-unicode-char-u8-not-set-up-for-use-with-latex
+% https://gist.github.com/beniwohli/798549
+%\DeclareUnicodeCharacter{25A0}{\ding{110}}
+\DeclareUnicodeCharacter{25A0}{$\blacksquare$}  % or \textbullet
+
+\newcommand{\insertframenumbering}{\insertframenumber{} of \inserttotalframenumber}
+\newcommand{\fitin}[1]{\parbox{0ex}{\mbox{#1}}}
+\setbeamercolor{framesubtitle}{fg=black}
+\addtobeamertemplate{frametitle}{}{%
+  \ifx\insertframesubtitle\@empty\else%
+  \usebeamerfont{framesubtitle}%
+  \usebeamercolor[fg]{framesubtitle}%
+  \insertframesubtitle%
+  \fi%
+}
+
+% https://tex.stackexchange.com/questions/2541/beamer-frame-numbering-in-appendix
+\newcommand{\backupbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+\captionsetup[figure]{font=Large,labelfont=Large}
+\usepackage{caption}
+
+\newcommand{\TODO}[1]{{\color{red}TODO #1}}
+
+% Add alignment key for figure
+%\usepackage[export]{adjustbox}
+ 
+% Setup presentation information
+\title{
+Unsupervised Pre-Training for Vietnamese \\ Automatic Speech Recognition \\ in the HYKIST Project
+}
+\subtitle{
+Bachelor Thesis Colloquium
+}
+
+\date[RWTH]{08.12.2022}
+\author[Khai]{Le Duc Khai \\
+dle@i6.informatik.rwth-aachen.de}
+\institute[]{RWTH Aachen University}
+
+
+% Set the logo to the file `logo`
+\logo{\includegraphics{rwth_hltpr_bild_rgb.jpg}}
+
+% Uncomment this if you want a TOC at every section start
+%\AtBeginSection{\frame{
+%    \frametitle{Content}
+%    \tableofcontents[currentsection]
+%}}
+
+%\usefonttheme[onlymath]{serif}
+
+% Use this to control some aspects of the footer
+%\setbeamertemplate{footertextextra}{Extra text in the footer \enskip{}Extra text in the footer}
+\setbeamertemplate{footertext}{ Unsupervised Pre-Training for Vietnamese Automatic Speech Recognition in the HYKIST Project |
+	Le Duc Khai | HLTPR | RWTH Aachen University | 08.12.2022}
+
+% use single header which displays only section
+\setbeamertemplate{headline}[rwth-single]{}
+
+% use dual header which displays section and subsection
+%\setbeamertemplate{headline}[rwth-dual]{}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Choose One
+% Note: Title pages should be created as plain
+% Title page with a blue bar
+%\setbeamercolor{title page bar}{fg=rwth}
+%\setbeamertemplate{title page}[rwth]{}
+%\begin{frame}[plain]
+
+%\titlepage
+%\end{frame}
+
+% Title page with a 1/3rd size picture
+%\setbeamercolor{title page bar}{fg=white}
+%\setbeamertemplate{title page}[rwth][title_small]{}
+%\begin{frame}[plain]
+%\titlepage
+%\end{frame}
+
+% Title page with a 2/3rd size picture
+%\setbeamertemplate{title page}[rwth2][title_large]{}
+%\begin{frame}[plain]
+%\titlepage
+%\end{frame}
+
+% Title page with a separator line at the bottom
+%\setbeamertemplate{title page}[rwth3][unten]{}
+\begin{frame}[plain]
+\titlepage
+
+\begin{align*}
+&\Large\text{Examiner:}  &&\Large\text{Prof. Dr. rer. nat. Ilya E. Digel, FH Aachen}\\
+&\Large\text{Co-Examiner:}  &&\Large\text{Christoph M. Lüscher, M.Sc., RWTH Aachen}\\
+&\Large\text{Advisor:}  &&\Large\text{Sen. Prof. Dr.-Ing. Hermann Ney, RWTH Aachen}\\
+&\Large\text{Co-Advisor:}  &&\Large\text{PD Dr. rer. nat. Ralf Schlüter, RWTH Aachen}
+\end{align*}
+
+\end{frame}
+
+% Title page with a separator line between title and subtitle
+%\setbeamertemplate{title page}[rwth3]{}
+%\begin{frame}[plain]
+%\titlepage
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Introduction}
+\input{Theory}
+\input{Experiments}
+
+\input{Experimental_results_01}
+\input{Experimental_results_02}
+\input{Experimental_results_03}
+\input{Experimental_results_04}
+\input{Experimental_results_05}
+\input{Experimental_results_06}
+\input{Experimental_results_07}
+\input{Experimental_results_08}
+
+\input{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Final frame, subtext is optional
+% Note: should be plain
+\setbeamertemplate{final page}[rwth][Any questions?]{Thank you for your attention}
+\begin{frame}[plain]
+\usebeamertemplate{final page}
+\end{frame}
+
+\section{References}
+{%\small%\footnotesize
+\setbeamertemplate{bibliography item}[text]
+\bibliographystyle{i6bibstyle}
+\bibliography{mybib}
+}
+\end{document}

@@ -1,0 +1,29 @@
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{adjustbox}{width=0.7\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multicolumn{2}{|c|}{Pre-training}                      & \multirow{2}{*}{With ICE} & \multicolumn{3}{c|}{WER [\%]}  \\ 
+\cline{1-2}\cline{4-6}
+Data                            & Hours                 &                           & CV dev & CV test & Vivos       \\ 
+\hline
+\multirow{2}{*}{None}           & \multirow{2}{*}{-}    & No                        & 20.8   & 44.7    & 34.9        \\ 
+\cline{3-6}
+                                &                       & Yes                       & 18.6   & 42.1    & 33.1        \\ 
+\hline
+\multirow{2}{*}{Viet. YT}       & \multirow{2}{*}{1168} & No                        & 16.4   & 34.4    & 28.7        \\ 
+\cline{3-6}
+                                &                       & Yes                       & 15.6   & 32.2    & 27.6        \\ 
+\hline
+\multirow{2}{*}{Viet. in-house} & \multirow{2}{*}{219}  & No                        & 16.4   & 35.6    & 31.3        \\ 
+\cline{3-6}
+                                &                       & Yes                       & 16.1   & 34.8    & 30.4        \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \center{Improvements of WERs on CommonVoice and VIVOS between pretraining schedules when applying ICE Loss.
+    All pretrainings use the \textit{Large}\textsubscript{1-8} architecture with random initialization and are finetuned until full convergence on Vietnamese in-house data.}}
+\label{int_loss_cvvivos_pos}
+\end{table}

@@ -1,0 +1,37 @@
+\begin{table}[!ht]
+\captionsetup{font=large}
+\centering
+\begin{adjustbox}{width=0.63\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Init.}            & \multicolumn{2}{c|}{Pre-training}                            & \multirow{2}{*}{With IF} & \multicolumn{3}{c|}{WER [\%]}  \\ 
+\cline{2-3}\cline{5-7}
+                                  & Data                                 & Hours                 &                          & CV dev & CV test & Vivos       \\ 
+\hline
+\multirow{4}{*}{\textit{XLSR-53}} & \multirow{2}{*}{None}                & \multirow{2}{*}{-}    & No                       & 14.8   & 32.5    & 30.3        \\ 
+\cline{4-7}
+                                  &                                      &                       & Yes                      & 15.4   & 33.6    & 30.0        \\ 
+\cline{2-7}
+                                  & \multirow{2}{*}{Viet. in-house}      & \multirow{2}{*}{219}  & No                       & 11.5   & 29.4    & 27.2        \\ 
+\cline{4-7}
+                                  &                                      &                       & Yes                      & 13.0   & 29.8    & 27.6        \\ 
+\hline
+\multirow{4}{*}{None}             & \multirow{2}{*}{Multiling. in-house} & \multirow{6}{*}{1168} & No                       & 15.2   & 29.7    & 29.5        \\ 
+\cline{4-7}
+                                  &                                      &                       & Yes                      & 14.5   & 30.6    & 28.1        \\ 
+\cline{2-2}\cline{4-7}
+                                  & \multirow{2}{*}{Viet. in-house + YT} &                       & No                       & 12.9   & 26.5    & 21.0        \\ 
+\cline{4-7}
+                                  &                                      &                       & Yes                      & 12.7   & 28.6    & 22.1        \\ 
+\cline{1-2}\cline{4-7}
+\multirow{2}{*}{\textit{XLSR-53}} & \multirow{2}{*}{Viet. YT}            &                       & No                       & 11.8   & 28.4    & 25.6        \\ 
+\cline{4-7}
+                                  &                                      &                       & Yes                      & 13.2   & 29.1    & 24.5        \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \center{Degradations of WERs on CommonVoice and VIVOS between pretraining schedules when applying IF Loss.
+    All pretrainings use the \textit{Large}\textsubscript{1-8} architecture and are finetuned until full convergence on Vietnamese in-house data.}}
+\label{table:if_loss_cvvivos_neg}
+\end{table}

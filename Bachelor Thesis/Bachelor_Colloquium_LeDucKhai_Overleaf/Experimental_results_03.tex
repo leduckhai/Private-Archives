@@ -1,0 +1,20 @@
+\begin{frame}{\textit{XLSR-53} as pretraining initialization}
+    \input{tables/xlsr53_init_pretrain}
+\end{frame}
+
+\begin{frame}{\textit{XLSR-53} as pretraining initialization}
+\begin{itemize}
+    \item WERs of in-house Vietnamese data (31.4\% and 33.4\% in table Monolingual pretraining) vs. continued pretraining on in-house Vietnamese (27.6\% and 29.5\%) vs. direct finetuning with \textit{XLSR-53}\textsubscript{1-8} (27.6\% and 31.9\%).
+    \\ \textrightarrow \, 
+    Continued pretraining using \textit{XLSR-53} model outperforms the pretraining using random initialization and the direct finetuning using \textit{XLSR-53}.
+    
+    \item WERs of full \textit{XLSR-53} reduce from 27.6\% and 29.5\% to 26.2\% and 29.0\% 
+    \\ \textrightarrow \,
+    If the resource usage is neglected, the \textit{Large} model should be chosen for better accuracy instead of the cut-off \textit{Large}\textsubscript{1-8}. %\TODO{it is not clear if this is the larger model ot the higher number of epochs. what if we train the cut out model for 100 epochs??}
+    
+    \item WERs of multilingual pretraining reduce from 26.8\% and 28.7\% (table Multilingual pretraining) to 23.9\% and 27.4\%, those for YT reduce from 29.8\% and 35.2\% (table Monolingual pretraining) to 24.3\% and 28.1\%, those for in-house+YT reduce from 25.3\% and 27.2\% (table Monolingual pretraining) to 24.5\% and 27.2\% 
+    \\ \textrightarrow \,
+    Continued pretraining helps both the monolingual and the multilingual scenario. 
+    However, the continued pretraining on less diverse data benefits more from the diverse and multilingual data.
+\end{itemize}
+\end{frame}

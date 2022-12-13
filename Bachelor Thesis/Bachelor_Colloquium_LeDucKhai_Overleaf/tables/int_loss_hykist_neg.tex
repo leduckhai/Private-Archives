@@ -1,0 +1,46 @@
+% \usepackage[normalem]{ulem}
+% \usepackage{multirow}
+
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{adjustbox}{width=0.7\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Arch.}             & \multirow{2}{*}{Init.}             & \multicolumn{2}{c|}{Pre-training}                            & \multirow{2}{*}{With ICE} & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-4}\cline{6-7}
+                                   &                                    & Data                                 & Hours                 &                           & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{6}{*}{\textit{Large}\textsubscript{1-8}} & \multirow{2}{*}{\textit{XLSR-53}}  & \multirow{2}{*}{None}                & \multirow{2}{*}{-}    & No                        & 27.9       & 32.3              \\ 
+\cline{5-7}
+                                   &                                    &                                      &                       & Yes                       & 28.4       & 33.3              \\ 
+\cline{2-7}
+                                   & \multirow{2}{*}{None}              & \multirow{6}{*}{Viet. in-house}      & \multirow{6}{*}{219}  & No                        & 30.4       & 33.4              \\ 
+\cline{5-7}
+                                   &                                    &                                      &                       & Yes                       & 29.1       & 33.7              \\ 
+\cline{2-2}\cline{5-7}
+                                   & \multirow{2}{*}{\textit{XLSR-53 }} &                                      &                       & No                        & 25.5       & 29.1              \\ 
+\cline{5-7}
+                                   &                                    &                                      &                       & Yes                       & 25.2       & 29.2              \\ 
+\cline{1-2}\cline{5-7}
+\multirow{2}{*}{\textit{Base}}     & \multirow{4}{*}{None}              &                                      &                       & No                        & 30.2       & 33.3              \\ 
+\cline{5-7}
+                                   &                                    &                                      &                       & Yes                       & 29.7       & 33.4              \\ 
+\cline{1-1}\cline{3-7}
+\multirow{4}{*}{\textit{Large}\textsubscript{1-8}} &                                    & \multirow{2}{*}{Multiling. in-house} & \multirow{4}{*}{1168} & No                        & 26.8       & 28.7              \\ 
+\cline{5-7}
+                                   &                                    &                                      &                       & Yes                       & 25.5       & 29.4              \\ 
+\cline{2-3}\cline{5-7}
+                                   & \multirow{2}{*}{\textit{XLSR-53}}  & \multirow{2}{*}{Viet. YT}            &                       & No                        & 24.3       & 28.1              \\ 
+\cline{5-7}
+                                   &                                    &                                      &                       & Yes                       & 23.7       & 28.2              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \center{Degradations of WERs on HYKIST data between pretraining schedules when applying ICE Loss.
+    All models are finetuned until full convergence on Vietnamese in-house data.
+    }}
+\label{table:int_loss_hykist_neg}
+\end{table}

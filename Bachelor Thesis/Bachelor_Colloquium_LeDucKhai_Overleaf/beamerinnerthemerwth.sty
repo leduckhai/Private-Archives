@@ -1,0 +1,172 @@
+\mode<presentation>
+
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{ifthen}
+
+\providecommand\inserttitle{}
+\providecommand\insertsubtitle{}
+
+\newlength{\titlepagelinewidth}
+\setlength{\titlepagelinewidth}{\paperwidth-16mm}
+
+\usetikzlibrary{calc}
+
+% Maxbox: Ensure #3 is no wider than #1 and taller than #2
+\providecommand{\maxbox}[3]{%
+  \setbox9=\hbox{{#3}}%
+  \ifdim\wd9>#1
+    \setbox9=\hbox{\resizebox{#1}{!}{#3}}%
+  \else
+    {}%
+  \fi%
+  \ifdim\ht9>#2
+    \setbox9=\hbox{\resizebox{!}{#2}{\usebox9}}%
+  \else
+    {}%
+  \fi%
+  \usebox9
+}
+
+\defbeamertemplate*{background}{rwth}{}
+
+%%%
+% Title page with 1/3 bar
+%%%
+\defbeamertemplate{title page}{rwth}[1][]{
+% The white bar, fills 1/3rd
+\usebeamercolor{title page bar}
+\tikz[overlay, remember picture] {
+  \fill[color=fg] ($(current page.north west)$) rectangle ($(current page.north east)+(0,-0.333\paperheight)$);
+\ifthenelse{\equal{#1}{}}{}{  \node[inner sep=0pt] (picture) at ($(current page.north west)+(0.5\paperwidth,-0.1665\paperheight)$) {\includegraphics[width=\paperwidth]{#1}};} 
+}
+
+% Adjust vspace for inclusion of blue bar. Note: Does not scale well
+% Requires header turned off (ie plain style)
+\vspace{69.1mm}
+
+\begin{beamercolorbox}[wd=\titlepagelinewidth,ht=15mm]{title}%
+\usebeamerfont{title}%
+\vbox to15mm{\inserttitle{}\vfil{}}%
+\end{beamercolorbox}%
+
+% Not using the negative space from powerpoint
+\vspace{0mm}
+
+\begin{beamercolorbox}[wd=\titlepagelinewidth,ht=46mm]{subtitle}%
+\usebeamerfont{subtitle}%
+\vbox to46mm{\insertsubtitle{}\vfil{}}%
+\end{beamercolorbox}%
+
+\vfill
+
+\tikz[overlay, remember picture] {
+%\node[inner sep=0pt] (logo) at ($(current page.south east)+(-53.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+\node[inner sep=0pt] (logo) at ($(current page.south east)+(-48.95mm,+1.29)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+}
+}
+
+%%%
+% Title page with 2/3 bar
+%%%
+\defbeamertemplate{title page}{rwth2}[1][]{
+% The white bar, fills 1/3rd
+\usebeamercolor{title page bar}
+\tikz[overlay, remember picture] {
+  \fill[color=fg] ($(current page.north west)$) rectangle ($(current page.north east)+(0,-0.666\paperheight)$);
+\ifthenelse{\equal{#1}{}}{}{  \node[inner sep=0pt] (picture) at ($(current page.north west)+(0.5\paperwidth,-0.332\paperheight)$) {\includegraphics[width=\paperwidth]{#1}};} 
+}
+
+% Adjust vspace for inclusion of blue bar. Note: Does not scale well
+% Requires header turned off (ie plain style)
+\vspace{132mm}
+
+\begin{beamercolorbox}[wd=\titlepagelinewidth,ht=15mm]{title}%
+\usebeamerfont{title}%
+\vbox to15mm{\inserttitle{}\vfil{}}%
+\end{beamercolorbox}%
+
+% Not using the negative space from powerpoint
+\vspace{0mm}
+
+\begin{beamercolorbox}[wd=\titlepagelinewidth,ht=15mm]{subtitle}%
+\usebeamerfont{subtitle}%
+\vbox to15mm{\insertsubtitle{}\vfil{}}%
+\end{beamercolorbox}%
+
+\vfill
+
+\tikz[overlay, remember picture] {
+%\node[inner sep=0pt] (logo) at ($(current page.south east)+(-53.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+\node[inner sep=0pt] (logo) at ($(current page.south east)+(-38.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+}
+}
+
+%%%
+% Title page with hrule
+%%%
+\defbeamertemplate{title page}{rwth3}[1][]{
+\vspace{0.333\paperheight}
+\vfill
+
+\begin{beamercolorbox}[wd=\titlepagelinewidth,ht=15mm]{title}%
+\usebeamerfont{title}%
+\vbox to15mm{\inserttitle{} \\ \vspace*{2mm} \ifthenelse{\equal{#1}{}}{{\color{black} \hrule}}{}  \vfil{}}% 
+\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=\titlepagelinewidth,ht=46mm]{subtitle}%
+\usebeamerfont{subtitle}%
+\vbox to46mm{\insertsubtitle{}\vfil{}}%
+\end{beamercolorbox}%
+
+\vfill
+\tikz[overlay, remember picture] {
+\ifthenelse{\equal{#1}{}}{}{\draw ($(current page.south west)+(+8mm,+22.6mm)$) -- ($(current page.south east)+(-8mm,+22.6mm)$);}
+%\node[inner sep=0pt] (logo) at ($(current page.south east)+(-53.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+\node[inner sep=0pt] (logo) at ($(current page.south east)+(-38.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+}
+}
+
+%%%
+% Template for final slide
+%%%
+\defbeamertemplate*{final page}{rwth}[2][]{
+\vspace{69.1mm}
+\begin{beamercolorbox}[wd=\textwidth,ht=30mm]{title}%
+\usebeamerfont{title}%
+\vbox to30mm{#2\vfil{}}%
+\end{beamercolorbox}%
+\vspace{11.7mm}
+\begin{beamercolorbox}[wd=\textwidth,ht=46mm]{subtitle}%
+\usebeamerfont{subtitle}%
+\vbox to46mm{#1\vfil{}}%
+\end{beamercolorbox}%
+\tikz[overlay, remember picture] {
+%\node[inner sep=0pt] (logo) at ($(current page.south east)+(-53.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+\node[inner sep=0pt] (logo) at ($(current page.south east)+(-38.95mm,+1.09)$){\maxbox{98.9mm}{22.6mm}{\insertlogo}};
+\draw ($(current page.south west)+(8mm,+22.6mm)$) -- ($(current page.south east)+(-8mm,+22.6mm)$);
+}
+}
+
+%%%
+% Items
+%%%
+% \defbeamertemplate*{itemize item}{bullet}{•}
+\defbeamertemplate*{itemize item}{bullet}{$\vcenter{\hbox{\small \textbullet}}$}
+\defbeamertemplate*{itemize subitem}{bar}{\textendash}
+\defbeamertemplate*{itemize subsubitem}{sq}{\fontsize{8pt}{8pt}\selectfont■}
+
+\setbeamertemplate{enumerate item}{\arabic{enumi}.}
+\setbeamertemplate{enumerate subitem}{\roman{enumii}.}
+\setbeamertemplate{enumerate subsubitem}{\Roman{enumiii}.}
+
+%%%
+% Margins
+%%%
+\setbeamersize{text margin left=8mm}
+\setbeamersize{text margin right=8mm}
+
+\setlength{\leftmargini}{8mm}
+\setlength{\leftmarginii}{6mm}
+\setlength{\leftmarginiii}{6mm}
+
+\mode<all>

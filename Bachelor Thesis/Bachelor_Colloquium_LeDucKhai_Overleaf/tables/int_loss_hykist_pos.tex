@@ -1,0 +1,34 @@
+% \usepackage[normalem]{ulem}
+% \usepackage{multirow}
+
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{adjustbox}{width=0.8\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multicolumn{2}{|c|}{Pre-training}                           & \multirow{2}{*}{With ICE} & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{1-2}\cline{4-5}
+Data                                 & Hours                 &                           & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{None}                & \multirow{2}{*}{-}    & No                        & 35.6       & 40.7              \\ 
+\cline{3-5}
+                                     &                       & Yes                       & 33.8       & 38.1              \\ 
+\hline
+\multirow{2}{*}{Viet. YT}            & \multirow{4}{*}{1168} & No                        & 29.8       & 35.2              \\ 
+\cline{3-5}
+                                     &                       & Yes                       & 27.3       & 31.5              \\ 
+\cline{1-1}\cline{3-5}
+\multirow{2}{*}{Viet. in-house + YT} &                       & No                        & 25.3       & 27.2              \\ 
+\cline{3-5}
+                                     &                       & Yes                       & 25.1       & 27.1              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \center{Improvements of WERs on HYKIST data between pretraining schedules when applying ICE Loss. 
+    All pretrainings use the \textit{Large}\textsubscript{1-8} architecture with random initialization and are finetuned until full convergence on Vietnamese in-house data. 
+    Only 1 intermediate layer is applied in the middle Transformer block, e.g. position 4 for \textit{Large}\textsubscript{1-8} and 6 for \textit{Base} architecture.}}
+\label{table:int_loss_hykist_pos}
+\end{table}

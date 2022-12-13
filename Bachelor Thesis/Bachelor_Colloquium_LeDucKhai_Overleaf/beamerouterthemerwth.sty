@@ -1,0 +1,189 @@
+\mode<presentation>
+
+\RequirePackage{calc}
+\RequirePackage{graphicx}
+
+% \framelinewidth is width of frame elements like title, text and separator lines
+\newlength{\framelinewidth}
+\setlength{\framelinewidth}{\paperwidth-16mm}
+% \foottextwidth is width of footer text
+\newlength{\foottextwidth}
+\setlength{\foottextwidth}{\paperwidth-31.2mm-98.9mm-4.5mm}
+
+% Maxbox: Ensure #3 is no wider than #1 and taller than #2
+\providecommand{\maxbox}[3]{%
+  \setbox9=\hbox{{#3}}%
+  \ifdim\wd9>#1
+    \setbox9=\hbox{\resizebox{#1}{!}{#3}}%
+  \else
+    {}%
+  \fi%
+  \ifdim\ht9>#2
+    \setbox9=\hbox{\resizebox{!}{#2}{\usebox9}}%
+  \else
+    {}%
+  \fi%
+  \usebox9
+}
+
+\newcommand{\nempty}[3]{\ifx#1\empty#3{}\else#2{}\fi}
+
+% Command building footer
+\defbeamertemplate*{footertext}{rwth}{
+\nempty{\inserttitle}{\inserttitle{}\enskip|\enskip}{}%
+\nempty{\insertauthor}{\insertauthor{}\enskip|\enskip}{}%
+\nempty{\insertinstitute}{\insertinstitute{}\enskip|\enskip}{}%
+\insertdate
+\ifbeamertemplateempty{footertextextra}{}{\enskip|\enskip\usebeamertemplate{footertextextra}}%
+}
+
+% Custom footer text and command
+\defbeamertemplate*{footertextextra}{rwth}{}
+
+\setlength{\headsep}{0pt}
+
+\makeatletter
+\newlength\leftmarrr
+\setlength{\leftmarrr}{\beamer@leftmargin}
+\makeatother
+
+\makeatletter
+\define@key{beamerframe}{t}[true]{% top
+  \beamer@frametopskip=0pt\relax%
+  \beamer@framebottomskip=0pt plus 1fill\relax%
+  \beamer@frametopskipautobreak=\beamer@frametopskip\relax%
+  \beamer@framebottomskipautobreak=\beamer@framebottomskip\relax%
+  \def\beamer@initfirstlineunskip{%
+    \def\beamer@firstlineitemizeunskip{%
+      \vskip-\partopsep\vskip-\topsep\vskip-\parskip%
+      \global\let\beamer@firstlineitemizeunskip=\relax}%
+    \everypar{\global\let\beamer@firstlineitemizeunskip=\relax}}
+}
+\makeatother
+
+%%%
+% Header (with Section + Subsection)
+%%%
+\defbeamertemplate*{headline}{rwth-dual}{
+\vspace{0mm}
+\hbox{%
+%
+  \hspace*{8mm}%
+%
+\begin{beamercolorbox}[wd=\framelinewidth,ht=13mm]{section in head/foot}%
+{\usebeamerfont{section in head/foot}\insertsectionhead}\\
+
+\hspace*{1em}\Large\usebeamerfont{subsection}\insertsubsectionhead\strut%
+\end{beamercolorbox}%
+%
+  \hspace*{8mm}%
+%
+}%
+\vspace{0.5mm}
+\hspace*{8mm}\begin{beamercolorbox}[wd=\framelinewidth,colsep=0.25pt]{separation line}
+\end{beamercolorbox}%
+\vskip-\partopsep\vskip-\topsep\vskip-\parskip
+\vskip9.4mm
+\vskip1mm
+}
+
+%%%
+% Header (with Section only)
+%%%
+\defbeamertemplate*{headline}{rwth-single}{
+\vspace{2.0mm}
+\hbox{%
+%
+  \hspace*{8mm}%
+%
+\begin{beamercolorbox}[wd=\framelinewidth,ht=13mm]{section in head/foot}%
+\usebeamerfont{section in head/foot}\insertsectionhead\strut%
+\end{beamercolorbox}%
+%
+  \hspace*{8mm}%
+%
+}%
+\vspace{1.9mm}
+\hspace*{8mm}\begin{beamercolorbox}[wd=\framelinewidth,colsep=0.25pt]{separation line}
+\end{beamercolorbox}%
+\vskip-\partopsep\vskip-\topsep\vskip-\parskip
+\vskip9.4mm
+\vskip1mm
+}
+
+
+%%%
+% Frame title
+%%%
+\defbeamertemplate*{frametitle}{rwth}
+{
+\vskip-9mm
+\hspace{-\leftmarrr}
+\hspace{8mm}
+\begin{beamercolorbox}[wd=\framelinewidth,ht=7mm]{frametitle}
+\usebeamerfont{frametitle}\insertframetitle%
+\end{beamercolorbox}
+\vskip0.2em
+}
+
+%%%
+% Footer
+%%%
+\defbeamertemplate*{footline}{rwth}{
+%\vspace{5.7mm} % Minimum space between content and footer, not really required
+\hspace*{8mm}
+\begin{beamercolorbox}[wd=\framelinewidth,colsep=0.25pt]{separation line}
+\end{beamercolorbox}%
+
+\vspace*{-2ex}
+
+\hbox{%
+%
+%  \hspace*{8mm}%
+  \hspace*{7.9mm}%
+%
+  \parbox[b]{20.2mm}{%
+    \vspace{5.7mm}%
+    \begin{beamercolorbox}[wd=20.2mm,ht=11.2mm]{page number in head/foot}%
+      \hspace*{0.3mm}
+      \usebeamerfont{page number in head/foot}%
+    \vbox to11.2mm{\insertframenumbering\vfil{}}%
+  \end{beamercolorbox}%
+    \vspace{5.7mm}%
+  }%
+%
+  \hspace*{3mm}%
+  \parbox[b]{\foottextwidth}{%
+    \vspace{5.7mm}%
+    \begin{beamercolorbox}[wd=\foottextwidth,ht=11.2mm]{text in head/foot}%
+    \usebeamerfont{text in head/foot}%
+    \vbox to11.2mm{\usebeamertemplate{footertext}
+    \vfil{}}%
+    \end{beamercolorbox}%
+    \vspace{5.7mm}%
+  }%
+%
+  \parbox[b]{98.8mm}{%
+    \hfill{}%    
+    \begin{beamercolorbox}[wd=98.8mm,ht=22.2mm]{logo}%
+      \usebeamerfont{logo}%
+%    \vbox to22.6mm{%
+    \vbox to18mm{
+%    {\hfill\maxbox{98.9mm}{22.6mm}{\insertlogo}}%
+    {\hfill\maxbox{98.8mm}{14.6mm}{\insertlogo}\hspace*{0.5mm}}%
+    \vfil{}}%
+    \end{beamercolorbox}%
+  }%
+%
+  \hspace*{4.5mm}%
+%
+}%
+}
+
+\defbeamertemplate*{sidebar left}{rwth}{}
+\defbeamertemplate*{sidebar right}{rwth}{}
+\setbeamersize{sidebar width left=0pt}
+\setbeamersize{sidebar width right=0pt}
+\defbeamertemplate*{navigation symbols}{rwth}{}
+
+\mode<all>

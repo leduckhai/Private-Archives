@@ -1,0 +1,28 @@
+\begin{table}[!h]
+\captionsetup{font=Large}
+\centering
+\begin{adjustbox}{width=0.8\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Architecture} & \multicolumn{2}{c|}{Pre-training}                              & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{2-5}
+                              & Data                                   & Hours                 & Hykist dev & Hykist test       \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{None}                  & \multirow{2}{*}{-}    & 35.8       & 39.9              \\ 
+\cline{1-1}\cline{4-5}
+\textit{Large}\textsubscript{1-8}             &                                        &                       & 35.0       & 40.7              \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{Viet. in-house}        & \multirow{2}{*}{219}  & 30.2       & 33.3              \\ 
+\cline{1-1}\cline{4-5}
+\textit{Large}\textsubscript{1-8}             &                                        &                       & 31.5       & 33.4              \\ 
+\hline
+\textit{Base}                 & \multirow{2}{*}{Multilingual in-house} & \multirow{2}{*}{1168} & 26.2       & 28.8              \\ 
+\cline{1-1}\cline{4-5}
+\textit{Large}\textsubscript{1-8}             &                                        &                       & 26.8       & 28.7              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{\center{Comparison for \textit{Base} and \textit{Large}\textsubscript{1-8} using different pretraining schedules: no pretraining, pretraining on in-house data and on multilingual data.
+All fine-tunings are done until full convergence on Vietnamese in-house data and the recognition is done on HYKIST.}}
+\label{table:encoder_compare_pretrain}
+\end{table}

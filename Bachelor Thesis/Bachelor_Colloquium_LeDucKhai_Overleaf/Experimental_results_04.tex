@@ -1,0 +1,16 @@
+\begin{frame}{Comparison to supervised baselines}
+    \input{tables/supervised_unsupervised_compare}
+\end{frame}
+
+\begin{frame}{Comparison to supervised baselines}
+\begin{itemize}
+    \item WERs of in-house pretraining (31.4\% and 33.4\%) vs. YT data (29.8\% and 35.2\%) are higher than Transformer baseline (31.0\% and 35.1\%).
+    \\ \textrightarrow \,
+    wav2vec 2.0 unsupervised pretraining does not always outperform the Transformer supervised-only approach, especially when the pretrained data is not diverse enough.
+    %\TODO{could it be that the amount of data is not enough for the model size? how big are Trafo and wav2vec2?}
+    
+    \item The best results are (24.5 \% and 27.2\%) on monolingual data and (23.9\% and 27.4\%) on multilingual data.
+    \\ \textrightarrow \,
+    Continued pretraining should be used regardless of sampling rate mismatch to gain the most benefits in terms of accuracy.
+\end{itemize}
+\end{frame}

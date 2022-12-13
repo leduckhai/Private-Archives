@@ -1,0 +1,23 @@
+% The main RWTH theme for Beamer
+% 12.11.2014: Revision 1 (Harold Bruintjes, Tim Lange)
+\mode<presentation>
+
+\newif\if@doWide
+\@doWidefalse
+\DeclareOption{wide}{\@doWidetrue}
+\ProcessOptions
+
+% Force paper size to that used by the template
+\if@doWide
+\geometry{paperwidth=29.33cm,paperheight=16.5cm}
+\else
+\geometry{paperwidth=25.4cm,paperheight=19.05cm}
+\fi
+
+% Load all the RWTH theme parts
+\useinnertheme{rwth}
+\useoutertheme{rwth}
+\usecolortheme{rwth}
+\usefonttheme{rwth}
+
+\mode<all> 

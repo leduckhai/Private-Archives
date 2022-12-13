@@ -1,0 +1,35 @@
+\section{Conclusion}
+
+\begin{frame}{Overall results}
+\begin{enumerate}
+    \item We use various acoustic encoder topologies to present supervised-only baselines for hybrid HMM.
+    
+    \item Unsupervised pretraining is especially effective when diverse pretraining data is used, e.g. data on multiple domains, multi-speaker data, augmented data...
+    Also, monolingual data with multiple domains outperforms multilingual data with high in-domain match level and speaker diversity.
+    Unsupervised pretraining does not always outperform the Transformer supervised-only approach, especially when the pretrained data is not diverse enough.
+    
+    \item Continued pretraining (our best unsupervised pretraining method) is beneficial for both the monolingual and the multilingual scenario regardless of sampling rate mismatch.
+    However, it is more beneficial for less diverse data than the diverse data.
+    
+    \item We recommend the \textit{Base} architecture instead of \textit{Large}\textsubscript{1-8} for the sake of both accuracy and inference performance.
+    %We also recommend Kaiming Initialization for better accuracy of wav2vec 2.0, instead of Xavier Initialization.
+    %\TODO{Xavier? in the table you had Glorot?!}
+    In our experiments Kaiming Initialization shows better performance but the small differences in pretraining might lead to a less clear comparison.
+    
+    \item %The novel IF Loss \TODO{this is not a novel loss.. this is a well known criterion with focal loss added at different places within the network. max the combination is something new} works better than the traditional ICE Loss in all data domains.
+    The IF Loss works better than the traditional ICE Loss in all data domains.
+    In addition, for the same telephone-domain recognition IF Loss works well but for the large out-of-domain recognition it should only be applied on less diverse pretrained data.
+    In order to further improvement of accuracy, we integrate IF Loss with our prosposed On-off Regularization and L2 Regularization.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Future work}
+\begin{enumerate}
+    \item Pretraining on the in-domain data (medical) is not compared yet.
+    \item Data augmentation for finetuning (except SpecAugment) is not investigated yet.
+    \item Our proposed On-off Regularization for different pretraining schedules is not studied and not compared with sequence discriminative training \cite{gibson2006hypothesis}, which also uses learning rate reset, yet.
+    \item The novel wav2vec 2.0 - Conformer \cite{wav2vec2_conformer} has not been investigated on medical domain nor Vietnamese.
+\end{enumerate}
+    
+\end{frame}

@@ -1,0 +1,30 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{AM}          & \multirow{2}{*}{Init}                & \multicolumn{2}{c|}{Pre-training}                            & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{3-6}
+                             &                                      & Data                                 & Hours                 & Hykist dev & Hykist test       \\ 
+\hline
+Transformer                  & \multirow{4}{*}{random}              & None                                 & -                     & 31.0       & 35.1              \\ 
+\cline{1-1}\cline{3-6}
+\multirow{5}{*}{wav2vec 2.0} &                                      & Viet. in-house                       & 219                   & 31.4       & 33.4              \\ 
+\cline{3-6}
+                             &                                      & Viet. YT                             & \multirow{4}{*}{1168} & 29.8       & 35.2              \\ 
+\cline{3-3}\cline{5-6}
+                             &                                      & \multirow{2}{*}{Viet. in-house + YT} &                       & 25.3       & 27.2              \\ 
+\cline{2-2}\cline{5-6}
+                             & \multirow{2}{*}{\textit{XLSR-53}\textsubscript{1-8}} &                                      &                       & 24.5       & 27.2              \\ 
+\cline{3-3}\cline{5-6}
+                             &                                      & Multilingual in-house                &                       & 23.9       & 27.4              \\
+\hline
+\end{tabular}
+\caption{\center{All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. 
+The 1st model is the supervised-only training using Transformer. 
+The 2nd, 3rd and 4th models are pretrained on specific data using random initializaton. The 5th and 6th models are continued pretraining methods (using \textit{XLSR-53}\textsubscript{1-8} as initialization).}}
+%\TODO{do you have a model with random init and viet in-house + YT?}
+\label{table: supervised_unsupervised_compare}
+\end{table}

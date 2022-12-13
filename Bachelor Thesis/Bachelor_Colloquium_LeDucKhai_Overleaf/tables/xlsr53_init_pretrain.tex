@@ -1,0 +1,29 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multicolumn{4}{|c|}{Pre-training}                                                                                                                                & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+Arch.                              & Data                                                                          & Hours                 & Epochs               & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{\textit{Large}\textsubscript{1-8}} & None                                                                          & -                     & None                 & 27.6       & 31.9              \\ 
+\cline{2-6}
+                                   & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Viet. in-house\end{tabular}} & \multirow{2}{*}{219}  & 25                   & 27.6       & 29.5              \\ 
+\cline{1-1}\cline{4-6}
+\textit{Large}                     &                                                                               &                       & 100                  & 26.2       & 29.0              \\ 
+\hline
+\multirow{3}{*}{\textit{Large}\textsubscript{1-8}} & Viet. YT                                                                      & \multirow{3}{*}{1168} & \multirow{2}{*}{100} & 24.3       & 28.1              \\ 
+\cline{2-2}\cline{5-6}
+                                   & Viet. in-house + YT                                                           &                       &                      & 24.5       & 27.2              \\ 
+\cline{2-2}\cline{4-6}
+                                   & Multilingual in-house                                                         &                       & 50                   & 23.9       & 27.4              \\
+\hline
+\end{tabular}
+\caption{\center{Table for unsupervised pre-training with the public \textit{XLSR-53} model as initialization. All finetunings use the \textit{Large}\textsubscript{1-8} architecture. 
+The 1st model is the direct finetuning on Vietnamese in-house data, and the remaining models use \textit{XLSR-53} as initialization for pretrainings (full model \textit{Large} or cut-off model  \textit{Large}\textsubscript{1-8}). The chosen number of pretraining epochs is the best checkpoint.}}
+\label{table: xlsr53_init_pretrain}
+%\TODO{here multilingual is on par with monolingual, with less epochs.. I think the statement mono better than multi in this case cannot be made}
+\end{table}

@@ -1,0 +1,35 @@
+\begin{frame}{Effectiveness of Intermediate Cross-Entropy Loss}
+\begin{itemize}
+    \item Improvement on HYKIST data: Total improvements for 3/9 experiments of small out-of-domain recognition
+\end{itemize}
+\input{tables/int_loss_hykist_pos}
+%\TODO{why are you only showing the results where this works? you have to show all results! Otherwise you are handpicking results which means this is not conclusive at all.}
+%\TODO{The tables for ICE and IF should look the same: slides 27, 28, 29, 31, 32}
+%\TODO{what could be the reason for ICE helping in certain conditions?}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Cross-Entropy Loss}
+\begin{itemize}
+    \item Degradation on HYKIST data: Total degradation for directly finetuning with \textit{XLSR-53}. The rest are partial degradations.
+\end{itemize}
+\input{tables/int_loss_hykist_neg}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Cross-Entropy Loss}
+\begin{itemize}
+    \item Improvement on CommonVoice and VIVOS data: Total improvements for 3/9 experiments of large out-of-domain recognition
+\end{itemize}
+\input{tables/int_loss_cvvivos_pos}
+%\TODO{do you have statistics and/or some intro to CV and Vivos?}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Cross-Entropy Loss}
+\begin{itemize}
+    \item Degradation on CommonVoice and VIVOS data: Total degradations for continued pretraining on in-house data and for pretraining on in-house + YT data.
+    The rest are partial degradations.
+\end{itemize}
+\input{tables/int_loss_cvvivos_neg}
+\end{frame}

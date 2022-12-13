@@ -1,0 +1,21 @@
+% \usepackage{multirow}
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multicolumn{4}{|c|}{Pre-training}                                                             & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\hline
+Init                    & Data                  & Hours                 & Epochs               & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{random} & Viet. in-house + YT   & \multirow{2}{*}{1168} & \multirow{2}{*}{300} & 25.3       & 27.2              \\ 
+\cline{2-2}\cline{5-6}
+                        & Multilingual in-house &                       &                      & 26.8       & 28.7              \\ 
+\hline
+\textit{XLSR-53}\textsubscript{1-8}     & None                  & -                     & None                 & 27.6       & 31.9              \\
+\hline
+\end{tabular}
+\caption{\center{All fine-tunings use the \textit{Large}\textsubscript{1-8} architecture and are trained until full convergence on Vietnamese in-house data and the recognition is done on HYKIST. The 2nd model is pretrained on our multilingual in-house dataset, and the 3rd uses \textit{XLSR-53}\textsubscript{1-8} to directly finetune on Vietnamese in-house data. The chosen number of pretraining epochs is the best checkpoint.}}
+\label{table:multiling_pretraining}
+\end{table}

@@ -1,0 +1,76 @@
+\begin{frame}{Effectiveness of Intermediate Focal Loss}
+\begin{itemize}
+    \item Improvement on HYKIST data:
+\end{itemize}
+\input{tables/if_loss_hykist_pos}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Focal Loss}
+\begin{itemize}
+    \item Improvement on HYKIST data:
+    \begin{itemize}
+        \item 7/9 experiments of IF Loss experience total improvements, compared to only 3/9 experiments of ICE Loss.
+        In addition, all WERs of IF Loss experiments are lower than those of ICE Loss experiments, except the one on HYKIST test set of from scratch training.
+        \\ \textrightarrow \,
+        When finetuning and recognizing on the same telephone domain, IF Loss works better than ICE Loss.
+        
+        \item WERs reduce from (29.8\% and 35.2\%) to (26.1\% and 30.8\%) for YT, from (30.4\% and 33.4\%) to (28.6\% and 33.0\%) for Vietnamese in-house, from (25.3\% and 27.2\%) to (24.5\% and 27.1\%) for in-house+YT.
+        \\ \textrightarrow \,
+        Effectiveness of IF Loss decreases when the pretrained data becomes more diverse.
+        %\TODO{what could be the reason why IF helps in certain conditions?}
+        
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Focal Loss}
+\begin{itemize}
+    \item Degradation on HYKIST data:
+\end{itemize}
+\input{tables/if_loss_hykist_neg}
+\begin{itemize}
+    \item[] The degradation of \textit{XLSR-53} is rather small.
+    Partial degradation in the multilingual in-house data but the average WER of dev and test set (25.2\% and 29.3\%) is even lower than the baseline (26.8\% and 28.7\%).
+    \\ \textrightarrow \,
+    In a rapid deployment of an ASR system, we recommend the direct use of IF Loss in training without the need of one more training without intermediate loss as a baseline for performance comparison.
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Focal Loss}
+\begin{itemize}
+    \item Improvement on CommonVoice and VIVOS data:
+\end{itemize}
+\input{tables/if_loss_cvvivos_pos}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Focal Loss}
+\begin{itemize}
+    \item Improvement on CommonVoice and VIVOS data:
+    \begin{itemize}
+        \item The ICE Loss makes 3/9 experiments totally improved (table Improvement on CommonVoice and VIVOS data), while the IF Loss makes 4/9.
+        WERs for IF Loss on 3 read speech datasets are as competitive as ICE Loss.
+        In addition, on the same telephone domain, IF Loss works better than ICE Loss.
+        \\ \textrightarrow \,
+        The IF Loss works better than the traditional ICE Loss in all domains.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Effectiveness of Intermediate Focal Loss}
+\begin{itemize}
+    \item Degradation on CommonVoice and VIVOS data:
+    \input{tables/if_loss_cvvivos_neg}
+    \begin{itemize}
+        \item Degradations in experiments pretrained on diverse data
+        \\ \textrightarrow \,
+        We recommend IF Loss only for less diverse pretrained data if the domain of finetuning and recognition data are too different.
+    \end{itemize}
+\end{itemize}
+\end{frame}

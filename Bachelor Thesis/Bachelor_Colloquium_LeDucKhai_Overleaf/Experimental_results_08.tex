@@ -1,0 +1,27 @@
+\begin{frame}{Studies on Intermediate Focal Loss design}
+\input{tables/WER_intLoss_multiple_layer}
+\begin{itemize}
+    \item Degradation on different single/double layer for \textit{Large}\textsubscript{1-8}, mixed results for the \textit{Base}.
+    \\ \textrightarrow \,
+    Single IF Loss in the middle network layer yields the best result among variants.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{On-off Regularization technique}
+\input{tables/on_off_regularization}
+\begin{itemize}
+    \item "Off Regularization" stage for the first 3 epochs and then "On Regularization" stage, WERs reduce from (33.0\% and 38.8\%) to (32.5\% and 38.4\%).
+    \item In the future work, we plan to apply the "On-off Regularization" technique to other pretraining schedules.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Combination of L2 regularization and Intermediate Focal Loss}
+\input{tables/L2_comb}
+\begin{itemize}
+    \item The right parameters for L2 are chosen based on grid-search strategy and different parameters make the WERs vary greatly.
+    \\ \textrightarrow \,
+    We recommend L2 regularization should be the last regularization effort in the entire regularization pipeline due to its higher sentitivity to WERs compared to ICE Loss and IF Loss. 
+\end{itemize}
+\end{frame}

@@ -1,0 +1,29 @@
+% \usepackage[normalem]{ulem}
+% \usepackage{multirow}
+
+
+\begin{table}[!ht]
+\captionsetup{font=Large}
+\centering
+\begin{adjustbox}{width=0.7\columnwidth,center}
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline
+\multirow{2}{*}{Init.}            & \multicolumn{2}{c|}{Pre-training}                            & \multirow{2}{*}{With IF} & \multicolumn{2}{c|}{WER [\%]}  \\ 
+\cline{2-3}\cline{5-6}
+                                  & Data                                 & Hours                 &                          & Hykist dev & Hykist test       \\ 
+\hline
+\multirow{2}{*}{\textit{XLSR-53}} & \multirow{2}{*}{None}                & \multirow{2}{*}{-}    & No                       & 27.9       & 32.3              \\ 
+\cline{4-6}
+                                  &                                      &                       & Yes                      & 28.0       & 32.8              \\ 
+\hline
+\multirow{2}{*}{None}             & \multirow{2}{*}{Multiling. in-house} & \multirow{2}{*}{1168} & No                       & 26.8       & 28.7              \\ 
+\cline{4-6}
+                                  &                                      &                       & Yes                      & 25.2       & 29.3              \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{
+    \center{Degradations of WERs on HYKIST data between pretraining schedules when applying IF Loss.
+    All pretrainings use the \textit{Large}\textsubscript{1-8} architecture and are finetuned until full convergence on Vietnamese in-house data.}}
+\label{table:if_loss_hykist_neg}
+\end{table}
