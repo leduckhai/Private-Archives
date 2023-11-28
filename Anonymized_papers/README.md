@@ -7,3 +7,9 @@ List of papers:
     **Khai Le-Duc***, Christoph Lüscher*, Minh-Nghia Phan, Ralf Schlüter, Hermann Ney
 
    Submitted to LREC-COLING 2024
+
+2. [Dynamic Intermediate Loss for Fine-tuning Self-Supervised Models](https://github.com/leduckhai/Private-Archives/blob/master/Anonymized_papers/DiLoss_paper_main_01-10-2023.pdf)
+
+    **Khai Le-Duc***, Christoph Lüscher*, Ralf Schlüter
+
+   v1 preprint (before internal review), to be submitted to ICASSP 2024
