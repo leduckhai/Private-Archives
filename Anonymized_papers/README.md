@@ -1,4 +1,4 @@
-A folder to store anonymized papers that can't be uploaded to arxiv during the double-blind review period
+A folder to store all submited preprint papers that can't be uploaded to arxiv (due to double-blind review period or internal request)
 
 List of papers:
 
