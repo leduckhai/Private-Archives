@@ -12,4 +12,4 @@ List of papers:
 
     **Khai Le-Duc***, Christoph Lüscher*, Ralf Schlüter
 
-   v1 preprint (before internal review), to be submitted to ICASSP 2024
+   v1 preprint (before internal review), to be submitted to ICASSP 2024 on 20.12.2023
