@@ -4,7 +4,7 @@ List of papers:
 
 1. [VietMed-NER: Medical Named Entity Recognition from Speech](https://github.com/leduckhai/Private-Archives/blob/master/Anonymized_papers/vietmedNER_paper_18-12-2023.pdf)
 
-    **Khai Le-Duc***, **David Thulke***, Hung-Phong Tran, Long Vo-Dang, Ralf Schlüter
+    **Khai Le-Duc***, David Thulke*, Hung-Phong Tran, Long Vo-Dang, Ralf Schlüter
 
    v1 preprint (before internal review), to be submitted to NAACL 2024 on 15.12.2023
    
