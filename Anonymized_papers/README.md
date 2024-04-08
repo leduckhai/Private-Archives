@@ -20,4 +20,11 @@ List of papers:
 
    Submitted to Interspeech 2024
 
+4. [VietMed: A Dataset and Benchmark for Automatic
+Speech Recognition of Vietnamese in the Medical Domain](https://github.com/leduckhai/Private-Archives/blob/master/Anonymized_papers/VietMed_paper_cameraready_26-03-2024.pdf)
+
+    **Khai Le-Duc**
+
+   Accepted at LREC-COLING 2024
+
 
