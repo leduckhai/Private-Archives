@@ -12,19 +12,18 @@ List of papers:
 
     **Khai Le-Duc***, Christoph Lüscher, Ralf Schlüter
 
-   v1 preprint (before internal review), to be submitted to ICASSP 2024 on 20.12.2023
+   v1 preprint (before internal review), to be submitted to ICDM 2024
    
 3. [VietMed-Sum: Real-time Speech Summarization for Medical Conversations](https://github.com/leduckhai/Private-Archives/blob/master/Anonymized_papers/Mainpaper_speechsum_Interspeech2024_12-03-2024.pdf)
 
     **Khai Le-Duc***, Khai-Nguyen Nguyen*, Long Vo-Dang, Truong-Son Hy
 
-   Submitted to Interspeech 2024
+   Accepted at Interspeech 2024
 
-4. [VietMed: A Dataset and Benchmark for Automatic
-Speech Recognition of Vietnamese in the Medical Domain](https://github.com/leduckhai/Private-Archives/blob/master/Anonymized_papers/VietMed_paper_cameraready_26-03-2024.pdf)
+4. [A Wearable Device Dataset for Mental Health Assessment Using Laser Doppler Flowmetry and Fluorescence Spectroscopy Sensors](https://github.com/leduckhai/Private-Archives/blob/master/Anonymized_papers/LDF_mainpaper_18-06-2024.pdf)
 
-    **Khai Le-Duc**
+    **Khai Le-Duc** et. al.
 
-   Accepted at LREC-COLING 2024
+  Submitted to ICDM 2024 (tripple blind)
 
 
